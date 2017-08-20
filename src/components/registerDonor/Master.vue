@@ -6,7 +6,7 @@
     <div class="col">
       <div class="container box">
 
-        <registerDonation v-if=""></registerDonation>
+        <registerDonor></registerDonor>
 
       </div>
     </div>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import registerDonor from './registerDonor'
 import registerDonation from './registerDonation'
 var data = {
 

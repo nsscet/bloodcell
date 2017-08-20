@@ -53,6 +53,7 @@ export default {
       .then(function(res){
         if(res.data.donorId)
           self.$store.commit('isAValidMobileNumber' , res.data.donorId)
+          self.$router.push('/home')
       })
       .catch(function(err){
         throw err;

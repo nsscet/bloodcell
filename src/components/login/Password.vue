@@ -21,7 +21,7 @@ export default {
   methods: {
     updateToken: function(token){
       this.$store.commit('updateToken' , token)
-      this.$router.push('/home')
+      this.$router.push('/register')
     },
     login: function(password){
       var self = this

@@ -6,7 +6,8 @@
     <div class="col">
       <div class="container box">
 
-        <registerDonation v-if=""></registerDonation>
+        <getMobile></getMobile>
+
 
       </div>
     </div>
@@ -17,7 +18,8 @@
 </template>
 
 <script>
-import registerDonation from './registerDonation'
+import getMobile from './getMobile'
+
 var data = {
 
 }
@@ -37,7 +39,7 @@ export default {
 
   },
   components: {
-    registerDonation
+    getMobile
   }
 }
 </script>
