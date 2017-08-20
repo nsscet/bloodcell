@@ -14,7 +14,7 @@
         </div>
         <div class="row align-items-center">
           <div class="col">
-            <Username v-if="!isValidUsername" @validUsername="showPassword"></Username>
+            <Username v-if="!isValidUsername"></Username>
             <Password v-if="isValidUsername"></Password>
           </div>
         </div>
@@ -35,19 +35,18 @@
 <script>
 import Username from './Username'
 import Password from './Password'
-var isValidUsername
 var data = {
-  isValidUsername
 }
 export default {
   data: function () {
     return data
   },
-  methods: {
-    showPassword: function () {
-      console.log('isValidUsername')
-      this.isValidUsername = true
+  computed: {
+    isValidUsername(){
+      return this.$store.state.isValidUsername;
     }
+  },
+  methods: {
   },
   components: {
     Username,
@@ -59,10 +58,6 @@ export default {
 <style lang="css">
 body{
   margin-top: 60px;
-  /*background: -webkit-linear-gradient(left, red , white);
-background: -o-linear-gradient(right, red, white);
-background: -moz-linear-gradient(right, red, white);
-background: linear-gradient(to right, red , white);*/
 }
 
 .box{
