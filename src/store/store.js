@@ -5,14 +5,17 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     isValidUsername: false,
-    usernameErrors:null
+    usernameErrors:null,
+    username:null,
+    accessToken:null
   },
   mutations: {
-    isAValidUsername(state){
+    isAValidUsername(state, username){
       state.isValidUsername = true
+      state.username = username
     },
     isNotAValidUsername(state){
-      state.usernameErrors = true
+      state.usernameErrors = "Enter a valid username"
     }
   }
 })

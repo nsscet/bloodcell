@@ -3,7 +3,7 @@
     <div class="row algin-items-start">
       <input required type="text" v-model="username" placeholder="Username" class="rounded-0 form-control w-100 username-input">
       <div class="alert" v-show="usernameErrors">
-        Please provide a valid username
+        {{usernameErrors}}
       </div>
     </div>
     <div class="row algin-items-end">
@@ -13,11 +13,13 @@
 </template>
 
 <script>
+import querystring from 'querystring'
 var username, isValidUsername, usernameErrors
-var isValid = false
+var isValid
 var data = {
   username
 }
+var $this = this
 export default {
   data: function () {
     return data
@@ -31,36 +33,44 @@ export default {
     }
   },
   methods: {
-    submit (username) {
-      // console.log(this.isValidUsername);
-      // window.axios.post(
-      //   'http://localhost:3000/api/admin/isValidUsername',
-      //   {
-      //     'username': username
-      //     // 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbnRoaXNlbmFuIiwiaWQiOiI1OTk2YWZkMmY3OGExMjFhNmNlMWNkMzQiLCJpYXQiOjE1MDMyMDM2ODUsImV4cCI6MTUwMzIwNTEyNX0.ttvmHXB7UFFiD-oIzByvTFLv0An-8yk5x9l-IJ1UmGc'
-      //   },
-      //   {
-      //     headers: {
-      //       'x-access-token': 'leyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbnRoaXNlbmFuIiwiaWQiOiI1OTk2YWZkMmY3OGExMjFhNmNlMWNkMzQiLCJpYXQiOjE1MDMyMDM3NzAsImV4cCI6MTUwMzIwNTIxMH0.nqrM0Ap3TNybarCeZprGG5kLArtvM6OYKV8qbH4O1zw'
-      //     }
-      //   })
-      // .then(function (res) {
-      //   console.log(res)
-      //   isValid = true
-      // })
-      // .catch(function (err) {
-      //   throw err
-      // })
-      isValid = true;
-
-      if (isValid) {
-        console.log(this.isValidUsername);
-        this.$store.commit('isAValidUsername')
+    updateUsername: function(username){
+      if(username){
+        this.$store.commit('isAValidUsername' , username)
       }
       else{
-        console.log(this.usernameErrors);
         this.$store.commit('isNotAValidUsername')
       }
+    },
+    submit (username) {
+      var self = this
+      var data = querystring.stringify({ username })
+
+      window.axios({
+        method: 'post',
+        url: 'http://localhost:3000/api/isValidUsername',
+        data
+      })
+      .then(function (res) {
+        // console.log($this.$store.state);
+        if(res.data.userId) {
+          self.updateUsername(username)
+        }
+        else{
+          self.updateUsername(null)
+        }
+      })
+      .catch(function (err) {
+        console.log('ERROR::', err);
+        throw err
+      })
+      // if (isValid) {
+      //   // console.log(this.isValidUsername);
+      //   // this.$store.commit('isAValidUsername' , username)
+      // }
+      // else{
+      //   // console.log(this.usernameErrors);
+      //   // this.$store.commit('isNotAValidUsername')
+      // }
     }
   }
 }
