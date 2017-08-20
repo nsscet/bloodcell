@@ -1,16 +1,50 @@
 <template lang="html">
   <div class="container form-group">
     <div class="row algin-items-start">
-      <input type="password" name="password" value="" placeholder="Password" class="rounded-0 form-control w-100 username-input">
+      <input type="password" v-model="password" placeholder="Password" class="rounded-0 form-control w-100 username-input">
     </div>
     <div class="row algin-items-end">
-      <button type="submit" name="" class="btn btn-primary ml-auto next-button">LOGIN</button>
+      <button type="submit" @click="login(password)" class="btn btn-primary ml-auto next-button">LOGIN</button>
     </div>
   </div>
 </template>
 
 <script>
+var password;
+var data = {
+  password
+}
 export default {
+  data: function(){
+    return data
+  },
+  methods: {
+    updateToken: function(token){
+      this.$store.commit('updateToken' , token)
+      console.log(this.$store.state.token);
+    },
+    login: function(password){
+      var self = this
+      var username = self.$store.state.username
+      var credentials = { username:username , password:password }
+      // console.log(credentials);
+
+      window.axios({
+        method: 'post',
+        url: 'http://localhost:3000/api/login',
+        data: credentials
+      })
+      .then(function(res){
+        // console.log(res.data);
+        if(res.data.token)
+          self.updateToken(res.data.token)
+
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+    }
+  }
 }
 </script>
 

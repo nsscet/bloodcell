@@ -7,5 +7,5 @@ window.axios.defaults.headers.common = {
   'Access-Control-Allow-Origin': '*'
 }
 
-import qs from 'querystring'
-window.qs = qs
+import querystring from 'querystring'
+window.querystring = querystring

@@ -16,6 +16,9 @@ export const store = new Vuex.Store({
     },
     isNotAValidUsername(state){
       state.usernameErrors = "Enter a valid username"
+    },
+    updateToken(state , token){
+      state.token = token
     }
   }
 })

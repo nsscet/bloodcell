@@ -19,7 +19,6 @@ var isValid
 var data = {
   username
 }
-var $this = this
 export default {
   data: function () {
     return data
@@ -51,7 +50,6 @@ export default {
         data
       })
       .then(function (res) {
-        // console.log($this.$store.state);
         if(res.data.userId) {
           self.updateUsername(username)
         }
@@ -63,14 +61,6 @@ export default {
         console.log('ERROR::', err);
         throw err
       })
-      // if (isValid) {
-      //   // console.log(this.isValidUsername);
-      //   // this.$store.commit('isAValidUsername' , username)
-      // }
-      // else{
-      //   // console.log(this.usernameErrors);
-      //   // this.$store.commit('isNotAValidUsername')
-      // }
     }
   }
 }
