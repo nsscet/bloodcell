@@ -75,6 +75,11 @@ module.exports = {
         loader: ['sass-loader', 'css-loader']
 
       }
+      {
+        test: /\.(css)(\?.*)?$/,
+        loader: ['css-loader']
+
+      }
     ]
   }
 }
