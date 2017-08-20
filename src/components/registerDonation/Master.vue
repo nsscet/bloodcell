@@ -7,15 +7,12 @@
       <div class="container box">
         <div class="row align-items-start">
           <div class="col">
-            <h4>Voluntary Blood Donation</h4>
-            <br>
-            <h3>Login</h3>
+            <h3>Register a new donation</h3>
           </div>
         </div>
         <div class="row align-items-center">
           <div class="col">
-            <Username v-if="!isValidUsername" @validUsername="showPassword"></Username>
-            <Password v-if="isValidUsername"></Password>
+
           </div>
         </div>
         <div class="row align-items-end">
@@ -33,25 +30,19 @@
 </template>
 
 <script>
-import Username from './Username'
-import Password from './Password'
-var isValidUsername
+
 var data = {
-  isValidUsername
+
 }
 export default {
   data: function () {
     return data
   },
   methods: {
-    showPassword: function () {
-      console.log('isValidUsername')
-      this.isValidUsername = true
-    }
+
   },
   components: {
-    Username,
-    Password
+
   }
 }
 </script>
@@ -70,8 +61,5 @@ background: linear-gradient(to right, red , white);*/
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
 
 }
-.login-form{
-  /*background:#FFFFFF;*/
-  padding: 20px;
-}
+
 </style>
