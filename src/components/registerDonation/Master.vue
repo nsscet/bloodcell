@@ -6,8 +6,8 @@
     <div class="col">
       <div class="container box">
 
-        <getMobile v-if="!donorId"></getMobile>
-        <!-- <registerDonor></registerDonor> -->
+        <getMobile v-if="!donorId && isValidMobileNumber"></getMobile>
+        <registerDonor v-if="!isValidMobileNumber"></registerDonor>
         <registerDonation v-if="donorId"></registerDonation>
 
       </div>
@@ -32,6 +32,9 @@ export default {
   computed: {
     donorId(){
       return this.$store.state.donorId
+    },
+    isValidMobileNumber(){
+      return this.$store.state.isValidMobileNumber
     }
   },
   methods: {

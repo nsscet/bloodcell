@@ -11,12 +11,12 @@
         <div class="container form-group">
           <div class="row algin-items-start">
             <input required type="text" v-model="name" placeholder="Name" class="form-control w-100 input">
-            <input required type="text" placeholder="Place of stay" class="form-control w-100 input">
-            <input required type="text" placeholder="Mobile Number" class="form-control w-100 input">
-            <input required type="text" placeholder="email" class="form-control w-100 input">
+            <input required type="text" v-model="place" placeholder="Place of stay" class="form-control w-100 input">
+            <input required type="text" v-model="mobileNumber" placeholder="Mobile Number" class="form-control w-100 input">
+            <input required type="text" v-model ="email" placeholder="email" class="form-control w-100 input">
           </div>
           <div class="row algin-items-end">
-            <button type="button" @click="submit(username)" class="btn btn-primary ml-auto next-button">NEXT</button>
+            <button type="button" @click="submit()" class="btn btn-primary ml-auto next-button">NEXT</button>
           </div>
         </div>
       </div>
@@ -31,7 +31,45 @@
 </template>
 
 <script>
+var data = {
+  name:'',
+  place: '',
+  mobileNumber: '',
+  email: ''
+}
 export default {
+  data: function(){
+    return data
+  },
+  methods: {
+    submit: function(){
+      var postData = {
+        name: this.name,
+        place: this.place,
+        mobileNumber: this.mobileNumber,
+        email: this.email,
+        token: this.$store.state.accessToken
+      }
+      window.axios({
+        url: 'http://localhost:3000/api/admin/donor',
+        method: 'post',
+        data: postData
+      })
+      .then(function(res){
+        // console.log(res);
+        if(res.data._id){
+          console.log('success');
+        }
+        else{
+          console.log('failed');
+          console.log(res.data);
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+      })
+    }
+  }
 }
 </script>
 
