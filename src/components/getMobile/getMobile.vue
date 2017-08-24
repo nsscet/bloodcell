@@ -44,16 +44,21 @@ export default {
         mobileNumber,
         token:this.accessToken
       }
-      console.log(postData);
+      // console.log(postData);
       window.axios({
         url:'http://localhost:3000/api/admin/findUserByMobileNumber',
         method: 'post',
         data: postData
       })
       .then(function(res){
-        if(res.data.donorId)
+        if(res.data.donorId){
           self.$store.commit('isAValidMobileNumber' , res.data.donorId)
-          self.$router.push('/home')
+          self.$router.push('/registerdonation')
+        }
+        else{
+          self.$router.push('/registerdonor')
+        }
+
       })
       .catch(function(err){
         throw err;

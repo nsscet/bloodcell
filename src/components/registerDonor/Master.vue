@@ -18,7 +18,6 @@
 
 <script>
 import registerDonor from './registerDonor'
-import registerDonation from './registerDonation'
 var data = {
 
 }
@@ -38,7 +37,7 @@ export default {
 
   },
   components: {
-    registerDonation
+    registerDonor
   }
 }
 </script>

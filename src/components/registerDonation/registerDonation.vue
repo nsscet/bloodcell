@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     submit: function(id){
+      var self = this
       var postData = {
         donorId: this.donorId,
         hospitalId: this.hospitalId,
@@ -78,6 +79,7 @@ export default {
       })
       .then(function(res){
         // console.log(res);
+        self.$router.push('/success')
       })
       .catch(function(err){
         throw err;
@@ -133,7 +135,7 @@ export default {
       data: postData
     })
     .then(function(res){
-      // console.log(res);
+      console.log(res);
       self.name = res.data.donor.name;
       self.email = res.data.donor.email;
       self.place = res.data.donor.place;

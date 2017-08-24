@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     submit: function(){
+      var self = this
       var postData = {
         name: this.name,
         place: this.place,
@@ -59,6 +60,7 @@ export default {
         // console.log(res);
         if(res.data._id){
           console.log('success');
+          self.$router.push('/registerdonation')
         }
         else{
           console.log('failed');
