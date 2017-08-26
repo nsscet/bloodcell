@@ -12,7 +12,7 @@
           <div class="row algin-items-start">
             <input required type="text" v-model="name" placeholder="Name" class="form-control w-100 input">
             <input required type="text" v-model="place" placeholder="Place of stay" class="form-control w-100 input">
-            <input required type="text" v-model="mobileNumber" placeholder="Mobile Number" class="form-control w-100 input">
+            <!-- <input required type="text" v-model="mobileNumber" placeholder="Mobile Number" class="form-control w-100 input"> -->
             <input required type="text" v-model ="email" placeholder="email" class="form-control w-100 input">
           </div>
           <div class="row algin-items-end">
@@ -41,6 +41,14 @@ export default {
   data: function(){
     return data
   },
+  computed: {
+    mobileNumber(){
+      return this.$store.state.mobileNumber
+    }
+  },
+  mounted(){
+    mobileNumber = this.mobileNumber
+  },
   methods: {
     submit: function(){
       var self = this
@@ -59,7 +67,10 @@ export default {
       .then(function(res){
         // console.log(res);
         if(res.data._id){
-          console.log('success');
+          // console.log('success');
+          // self.$store.state.donorId = null
+          // self.$store.state.mobileNumber = self.mobileNumber;
+          // console.log(self.mobileNumber);
           self.$router.push('/registerdonation')
         }
         else{

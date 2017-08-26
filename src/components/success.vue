@@ -16,6 +16,9 @@
         </div>
         <div class="row align-items-end">
           <div class="col">
+            <button class="btn btn-primary ml-auto next-button" @click="newDonation()">Register another donation</button>
+            <button class="btn btn-danger ml-auto next-button" @click="logout()">Logout</button>
+
             <hr>
             <span class="small">An initiative by BloodCell, NSS CET</span>
           </div>
@@ -33,7 +36,12 @@ export default {
   name: "",
   data: () => ({
 
-  })
+  }),
+  methods: {
+    newDonation: function(){
+      this.$router.push('/getmobile');
+    }
+  }
 }
 </script>
 

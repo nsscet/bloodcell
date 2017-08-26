@@ -28,6 +28,14 @@ export const store = new Vuex.Store({
     isAValidMobileNumber(state , donorId){
       state.isValidMobileNumber = true
       state.donorId = donorId
+    },
+    clearDonorDetails(state){
+      state.donorId = null,
+      state.mobileNumber = null,
+      state.isValidMobileNumber = null
+    },
+    updateMobile(state, mobile){
+      state.mobileNumber = mobile
     }
   }
 })

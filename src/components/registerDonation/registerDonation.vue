@@ -79,7 +79,12 @@ export default {
       })
       .then(function(res){
         // console.log(res);
+        // self.$store.state.mobileNumber = null
+        // self.$store.state.donorId = null
+        // self.$store.state.isValidMobileNumber = null
+        self.$store.commit('clearDonorDetails')
         self.$router.push('/success')
+
       })
       .catch(function(err){
         throw err;
