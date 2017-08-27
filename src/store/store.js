@@ -38,9 +38,10 @@ export const store = new Vuex.Store({
       state.isValidMobileNumber = true
     },
     clearDonorDetails(state){
-      state.donor.donorId = null,
-      state.donor.mobileNumber = null,
-      state.isValidMobileNumber = null
+      for(var key in state.donor) state.donor[key] = null
+      // state.donor.donorId = null,
+      // state.donor.mobileNumber = null,
+      // state.isValidMobileNumber = null
     },
     updateMobile(state, mobile){
       state.donor.mobileNumber = mobile

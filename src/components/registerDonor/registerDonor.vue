@@ -12,8 +12,9 @@
           <div class="row algin-items-start">
             <input required type="text" v-model="name" placeholder="Name" class="form-control w-100 input">
             <input required type="text" v-model="place" placeholder="Place of stay" class="form-control w-100 input">
-            <!-- <input required type="text" v-model="mobileNumber" placeholder="Mobile Number" class="form-control w-100 input"> -->
             <input required type="text" v-model ="email" placeholder="email" class="form-control w-100 input">
+            <input required type="text" v-model ="donorId" placeholder="Donor ID" class="form-control w-100 input">
+            <input required type="text" v-model ="bloodGroup" placeholder="Blood Group" class="form-control w-100 input">
           </div>
           <div class="row algin-items-end">
             <button type="button" @click="submit()" class="btn btn-primary ml-auto next-button">NEXT</button>
@@ -31,11 +32,13 @@
 </template>
 
 <script>
+var name, place, email, donorId, bloodGroup
 var data = {
-  name:'',
-  place: '',
-  // mobileNumber: '',
-  email: ''
+  name,
+  place,
+  email,
+  donorId,
+  bloodGroup
 }
 export default {
   data: function(){
@@ -43,13 +46,12 @@ export default {
   },
   computed: {
     mobile(){
-      return this.$store.state.mobileNumber
+      return this.$store.state.donor.mobileNumber
+    },
+    accessToken(){
+      return this.$store.state.accessToken
     }
   },
-  // mounted(){
-  //   this.$store.commit('updateMobile' , this.mobileNumber)
-  //   // this.mobile = this.mobileNumber
-  // },
   methods: {
     submit: function(){
       var self = this
@@ -58,25 +60,22 @@ export default {
         place: this.place,
         mobileNumber: this.mobile,
         email: this.email,
-        token: this.$store.state.accessToken
+        bloodGroup: this.bloodGroup,
+        donorId: this.donorId,
+        token: this.accessToken
       }
       window.axios({
-        url: 'http://localhost:3000/api/admin/donor',
+        url: process.env.API_URL + '/admin/donor',
         method: 'post',
         data: postData
       })
       .then(function(res){
-        // console.log(res);
-        if(res.data._id){
-          self.$store.commit('updateId' , res.data_id)
+        console.log(res.data.Donor);
+          self.$store.commit('updateDonor' , res.data.Donor)
           self.$router.push('/registerdonation')
-        }
-        else{
-          console.log('failed');
-          console.log(res.data);
-        }
       })
       .catch(function(err){
+        throw err
         console.log(err);
       })
     }
