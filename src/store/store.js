@@ -10,10 +10,14 @@ export const store = new Vuex.Store({
     isAuthenticated:false,
     usernameErrors:null,
     donor : {
+      donorId: null,
+      name: null,
+      place: null,
       mobileNumber: null,
-      id: null
+      bloodGroup: null,
+      email: null
     },
-    isValidMobileNumber:false,
+    isValidMobileNumber:false
     // donorId:null,
     // mobileNumber:null
   },
@@ -29,12 +33,12 @@ export const store = new Vuex.Store({
       state.accessToken = token
       state.isAuthenticated = true
     },
-    isAValidMobileNumber(state , donorId){
+    isAValidMobileNumber(state){
+
       state.isValidMobileNumber = true
-      state.donor.id = donorId
     },
     clearDonorDetails(state){
-      state.donor.id = null,
+      state.donor.donorId = null,
       state.donor.mobileNumber = null,
       state.isValidMobileNumber = null
     },
@@ -42,7 +46,15 @@ export const store = new Vuex.Store({
       state.donor.mobileNumber = mobile
     },
     updateId(state , id){
-      state.donor.id = id
+      state.donor.donorId = id
+    },
+    updateDonor(state, donor){
+      state.donor.name = donor.name
+      state.donor.donorId = donor.donorId
+      state.donor.email = donor.email
+      state.donor.place = donor.place
+      state.donor.bloodGroup = donor.bloodGroup
+      state.donor.mobileNumber = donor.mobileNumber
     }
   }
 })

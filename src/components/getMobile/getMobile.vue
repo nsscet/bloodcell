@@ -38,22 +38,23 @@ export default {
     return data
   },
   methods: {
+
     submit: function(mobileNumber){
       var self = this
       var postData = {
         mobileNumber,
         token:this.accessToken
       }
-      // console.log(postData);
       window.axios({
-        url:'http://localhost:3000/api/admin/findUserByMobileNumber',
+        url:process.env.API_URL + '/admin/findDonorByMobileNumber',
         method: 'post',
         data: postData
       })
       .then(function(res){
-        if(res.data.donorId){
-          self.$store.commit('updateMobile' , self.mobileNumber)
-          self.$store.commit('isAValidMobileNumber' , res.data.donorId)
+        // console.log(res.data);
+        if(res.data.donor){
+          self.$store.commit('updateDonor' , res.data.donor)
+          self.$store.commit('isAValidMobileNumber')
           self.$router.push('/registerdonation')
         }
         else{
@@ -66,6 +67,7 @@ export default {
         throw err;
       })
     }
+
   },
   computed: {
     mobileNumber(){

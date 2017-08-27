@@ -10,7 +10,7 @@
 </template>
 
 <script>
-var password;
+var password
 var data = {
   password
 }
@@ -27,28 +27,22 @@ export default {
       var self = this
       var username = self.$store.state.username
       var credentials = { username:username , password:password }
-      // console.log(credentials);
 
       window.axios({
         method: 'post',
-        url: 'http://localhost:3000/api/login',
+        url: process.env.API_URL + '/login',
         data: credentials
       })
       .then(function(res){
-        // console.log(res.data);
         if(res.data.token)
-          self.updateToken(res.data.token)
-
+        self.updateToken(res.data.token)
       })
       .catch(function(err){
         console.log(err);
+        throw err;
       })
     }
   }
-  // mounted(){
-  //   if(this.$store.state.isAuthenticated)
-  //     this.$router.push('/home')
-  // }
 }
 </script>
 

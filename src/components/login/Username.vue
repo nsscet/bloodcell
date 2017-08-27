@@ -45,7 +45,7 @@ export default {
 
       window.axios({
         method: 'post',
-        url: 'http://localhost:3000/api/isValidUsername',
+        url: process.env.API_URL+'/isValidUsername',
         data
       })
       .then(function (res) {
