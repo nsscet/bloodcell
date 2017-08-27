@@ -44,11 +44,11 @@ export default {
         console.log(err);
       })
     }
-  },
-  mounted(){
-    if(this.$store.state.isAuthenticated)
-      this.$router.push('/home')
   }
+  // mounted(){
+  //   if(this.$store.state.isAuthenticated)
+  //     this.$router.push('/home')
+  // }
 }
 </script>
 
