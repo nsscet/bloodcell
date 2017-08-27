@@ -34,7 +34,7 @@
 var data = {
   name:'',
   place: '',
-  mobileNumber: '',
+  // mobileNumber: '',
   email: ''
 }
 export default {
@@ -42,20 +42,21 @@ export default {
     return data
   },
   computed: {
-    mobileNumber(){
+    mobile(){
       return this.$store.state.mobileNumber
     }
   },
-  mounted(){
-    mobileNumber = this.mobileNumber
-  },
+  // mounted(){
+  //   this.$store.commit('updateMobile' , this.mobileNumber)
+  //   // this.mobile = this.mobileNumber
+  // },
   methods: {
     submit: function(){
       var self = this
       var postData = {
         name: this.name,
         place: this.place,
-        mobileNumber: this.mobileNumber,
+        mobileNumber: this.mobile,
         email: this.email,
         token: this.$store.state.accessToken
       }
@@ -67,10 +68,7 @@ export default {
       .then(function(res){
         // console.log(res);
         if(res.data._id){
-          // console.log('success');
-          // self.$store.state.donorId = null
-          // self.$store.state.mobileNumber = self.mobileNumber;
-          // console.log(self.mobileNumber);
+          self.$store.commit('updateId' , res.data_id)
           self.$router.push('/registerdonation')
         }
         else{

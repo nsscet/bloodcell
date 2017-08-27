@@ -109,7 +109,7 @@ export default {
       return today;
     }
   },
-  created(){
+  mounted(){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -123,19 +123,20 @@ export default {
       mm = '0'+mm
     }
 
-    today = dd + '/' + mm + '/' + yyyy;
+    // today = dd + '/' + mm + '/' + yyyy;
+    today = yyyy + '-' + mm + '-' + dd;
     this.dateOfDonation = today
 
 
     var self = this;
     this.id = this.donorId
     var postData = {
-      donorId:self.donorId,
+      mobileNumber:self.$store.state.mobileNumber,
       token:self.$store.state.accessToken
     }
     // console.log(postData);
     window.axios({
-      url:'http://localhost:3000/api/admin/findUserById',
+      url:'http://localhost:3000/api/admin/findUserByMobileNumber',
       method: 'post',
       data: postData
     })

@@ -41,8 +41,8 @@ export default {
     submit: function(mobileNumber){
       var self = this
       var postData = {
-        mobileNumber
-        // token:this.accessToken
+        mobileNumber,
+        token:this.accessToken
       }
       // console.log(postData);
       window.axios({
@@ -52,6 +52,7 @@ export default {
       })
       .then(function(res){
         if(res.data.donorId){
+          self.$store.commit('updateMobile' , self.mobileNumber)
           self.$store.commit('isAValidMobileNumber' , res.data.donorId)
           self.$router.push('/registerdonation')
         }
