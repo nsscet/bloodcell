@@ -19,10 +19,10 @@ export default {
     return data
   },
   methods: {
-    updateToken: function(token){
-      this.$store.commit('updateToken' , token)
-      this.$router.push('/getmobile')
-    },
+    // updateToken: function(token){
+    //   this.$store.commit('updateToken' , token)
+    //   this.$router.push('/getmobile')
+    // },
     login: function(password){
       var self = this
       var username = self.$store.state.username
@@ -35,8 +35,11 @@ export default {
         withCredentials: true
       })
       .then(function(res){
-        if(res.data.token)
-        self.updateToken(res.data.token)
+        // console.log(res.data);
+        if(res.data.success){
+          self.$store.commit('loginSuccess')
+          self.$router.push('/getmobile')
+        }
       })
       .catch(function(err){
         console.log(err);

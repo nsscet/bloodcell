@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="">
-
     <div class="row align-items-start">
       <div class="col">
         <h3>Register a new donation</h3>
@@ -43,7 +42,6 @@ export default {
       var self = this
       var postData = {
         mobileNumber
-        // token:this.accessToken
       }
       window.axios({
         url:process.env.API_URL + '/admin/findDonorByMobileNumber',
@@ -52,7 +50,6 @@ export default {
         withCredentials: true
       })
       .then(function(res){
-        // console.log(res.data);
         if(res.data.donor){
           self.$store.commit('updateDonor' , res.data.donor)
           self.$store.commit('isAValidMobileNumber')
@@ -73,10 +70,10 @@ export default {
   computed: {
     mobileNumber(){
       return this.$store.state.mobileNumber
-    },
-    accessToken(){
-      return this.$store.state.accessToken
     }
+  },
+  created(){
+    this.mobile = ''
   }
 }
 </script>

@@ -47,9 +47,6 @@ export default {
   computed: {
     mobile(){
       return this.$store.state.donor.mobileNumber
-    },
-    accessToken(){
-      return this.$store.state.accessToken
     }
   },
   methods: {
@@ -61,8 +58,7 @@ export default {
         mobileNumber: this.mobile,
         email: this.email,
         bloodGroup: this.bloodGroup,
-        donorId: this.donorId,
-        token: this.accessToken
+        donorId: this.donorId
       }
       window.axios({
         url: process.env.API_URL + '/admin/donor',

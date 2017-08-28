@@ -70,9 +70,6 @@ export default {
   computed: {
     donor(){
       return this.$store.state.donor
-    },
-    accessToken(){
-      return this.$store.state.accessToken
     }
   },
   methods: {
@@ -82,8 +79,7 @@ export default {
         donorId: this.donor.donorId,
         hospitalId: this.hospitalId,
         dateOfDonation: this.dateOfDonation,
-        typeOfDonation: this.typeOfDonation,
-        token:this.accessToken
+        typeOfDonation: this.typeOfDonation
       }
 
 

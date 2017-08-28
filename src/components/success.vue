@@ -42,7 +42,19 @@ export default {
       this.$router.push('/getmobile');
     },
     logout: function(){
-      // axios.get()
+      var self = this
+      axios.get({
+        url: process.env.API_URL + '/logout',
+        method: 'get',
+        sendCredentials: true
+      })
+      .then((res) => {
+        self.$store.commit('logout')
+        self.$router.push('/')
+      })
+      .catch((err) => {
+        throw err
+      })
     }
   }
 }

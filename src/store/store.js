@@ -6,7 +6,7 @@ export const store = new Vuex.Store({
   state: {
     isValidUsername: false,
     username:null,
-    accessToken:null,
+    // accessToken:null,
     isAuthenticated:false,
     usernameErrors:null,
     donor : {
@@ -18,8 +18,6 @@ export const store = new Vuex.Store({
       email: null
     },
     isValidMobileNumber:false
-    // donorId:null,
-    // mobileNumber:null
   },
   mutations: {
     isAValidUsername(state, username){
@@ -29,13 +27,19 @@ export const store = new Vuex.Store({
     isNotAValidUsername(state){
       state.usernameErrors = "Enter a valid username"
     },
-    updateToken(state , token){
-      state.accessToken = token
-      state.isAuthenticated = true
-    },
+    // updateToken(state , token){
+    //   state.accessToken = token
+    //   state.isAuthenticated = true
+    // },
     isAValidMobileNumber(state){
 
       state.isValidMobileNumber = true
+    },
+    loginSuccess(state){
+      state.isAuthenticated = true
+    },
+    logout(state){
+      state.isAuthenticated = false
     },
     clearDonorDetails(state){
       for(var key in state.donor) state.donor[key] = null
