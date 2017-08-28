@@ -31,7 +31,8 @@ export default {
       window.axios({
         method: 'post',
         url: process.env.API_URL + '/login',
-        data: credentials
+        data: credentials,
+        withCredentials: true
       })
       .then(function(res){
         if(res.data.token)

@@ -67,7 +67,8 @@ export default {
       window.axios({
         url: process.env.API_URL + '/admin/donor',
         method: 'post',
-        data: postData
+        data: postData,
+        withCredentials: true
       })
       .then(function(res){
         console.log(res.data.Donor);

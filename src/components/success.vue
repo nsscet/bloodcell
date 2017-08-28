@@ -40,6 +40,9 @@ export default {
   methods: {
     newDonation: function(){
       this.$router.push('/getmobile');
+    },
+    logout: function(){
+      // axios.get()
     }
   }
 }

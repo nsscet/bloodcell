@@ -42,13 +42,14 @@ export default {
     submit: function(mobileNumber){
       var self = this
       var postData = {
-        mobileNumber,
-        token:this.accessToken
+        mobileNumber
+        // token:this.accessToken
       }
       window.axios({
         url:process.env.API_URL + '/admin/findDonorByMobileNumber',
         method: 'post',
-        data: postData
+        data: postData,
+        withCredentials: true
       })
       .then(function(res){
         // console.log(res.data);

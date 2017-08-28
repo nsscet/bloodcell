@@ -90,7 +90,8 @@ export default {
       window.axios({
         url: process.env.API_URL + '/admin/donation',
         method:'post',
-        data: postData
+        data: postData,
+        withCredentials: true
       })
       .then(function(res){
         self.$store.commit('clearDonorDetails')
