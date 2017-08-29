@@ -11,7 +11,9 @@ export default {
 }
 </script>
 
-<style>
- /*@import "node_modules/bootstrap/scss/bootstrap"*/
+<style lang="sass">
+/*@import "custom";*/
+@import "~bootstrap/scss/bootstrap"
+
 
 </style>

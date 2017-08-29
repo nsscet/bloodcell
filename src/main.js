@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import './bootstrap'
 
+import 'bootstrap'
 import App from './App'
 import router from './router'
 import { store } from './store/store'
+
+
 
 Vue.config.productionTip = false
 
