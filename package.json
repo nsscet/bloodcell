@@ -16,6 +16,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^4.0.0-beta",
+    "font-awesome": "^4.7.0",
+    "fontawesome": "^4.7.2",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.3",
     "querystring": "^0.2.0",

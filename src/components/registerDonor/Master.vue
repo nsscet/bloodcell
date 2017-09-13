@@ -1,23 +1,28 @@
 <template lang="html">
-  <div class="row">
-    <div class="col">
+  <div class="">
+    <Navbar></Navbar>
+    <div class="row row-main">
+      <div class="col">
 
-    </div>
-    <div class="col">
-      <div class="container box">
+      </div>
+      <div class="col">
+        <div class="container box">
 
-        <registerDonor></registerDonor>
+          <registerDonor></registerDonor>
+
+        </div>
+      </div>
+      <div class="col">
 
       </div>
     </div>
-    <div class="col">
-
-    </div>
   </div>
+
 </template>
 
 <script>
 import registerDonor from './registerDonor'
+import Navbar from '../navbar/Master'
 var data = {
 
 }
@@ -37,7 +42,8 @@ export default {
 
   },
   components: {
-    registerDonor
+    registerDonor,
+    Navbar
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="row">
+  <div class="row row-main">
     <div class="col">
 
     </div>

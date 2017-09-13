@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="row">
+  <div class="">
+  <div class="row row-main">
     <div class="col">
 
     </div>
@@ -30,11 +31,14 @@
 
     </div>
   </div>
+</div>
+
 </template>
 
 <script>
 import Username from './Username'
 import Password from './Password'
+import Navbar from '../navbar/Master'
 var data = {
 }
 export default {
@@ -50,14 +54,15 @@ export default {
   },
   components: {
     Username,
-    Password
+    Password,
+    Navbar
   }
 }
 </script>
 
 <style lang="css">
 body{
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 
 .box{

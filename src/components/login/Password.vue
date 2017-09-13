@@ -38,7 +38,7 @@ export default {
         // console.log(res.data);
         if(res.data.success){
           self.$store.commit('loginSuccess')
-          self.$router.push('/getmobile')
+          self.$router.push('/dash')
         }
       })
       .catch(function(err){

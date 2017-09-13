@@ -9,6 +9,7 @@ import registerDonation from '@/components/registerDonation/Master'
 import getMobile from '@/components/getMobile/Master'
 import registerDonor from '@/components/registerDonor/Master'
 import Success from '@/components/success'
+import Dashboard from '@/components/dashboard/Master'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
           redirect: '/getmobile'
         }
       }
+    },
+    {
+      path: '/dash',
+      component: Dashboard,
+      name: 'dash'
     },
     {
       path: '/login',

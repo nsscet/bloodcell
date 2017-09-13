@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+    <Navbar></Navbar>
     <div class="row align-items-start">
       <div class="col">
         <h3>Register a new donation</h3>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import Navbar from '../navbar/Master'
 var isAValidMobile , mobile
 var data = {
   mobile
@@ -44,14 +46,14 @@ export default {
         mobileNumber
       }
       window.axios({
-        url:process.env.API_URL + '/admin/findDonorByMobileNumber',
-        method: 'post',
-        data: postData,
+        url:process.env.API_URL + '/admin/donor',
+        method: 'get',
+        params: postData,
         withCredentials: true
       })
       .then(function(res){
-        if(res.data.donor){
-          self.$store.commit('updateDonor' , res.data.donor)
+        if(res.data.Donors[0]){
+          self.$store.commit('updateDonor' , res.data.Donors[0])
           self.$store.commit('isAValidMobileNumber')
           self.$router.push('/registerdonation')
         }
@@ -74,6 +76,9 @@ export default {
   },
   created(){
     this.mobile = ''
+  },
+  components: {
+    Navbar
   }
 }
 </script>
