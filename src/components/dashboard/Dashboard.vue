@@ -19,6 +19,10 @@
       </div>
 
     </div>
+    <br>
+    <div class="row">
+      <h2>Blood Requirement Posts</h2>
+    </div>
   </div>
 
 </template>
@@ -67,6 +71,18 @@ export default {
     .then((res) => {
       this.count2 = res.data.count
     })
+
+    axios.get(
+      process.env.API_URL + '/admin/requirements',
+      {
+        params: {
+          isClosed: false
+        },
+        withCredentials: true
+      })
+      .then((res) => {
+        this.count3 = res.data.count
+      })
   }
 }
 </script>
