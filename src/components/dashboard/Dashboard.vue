@@ -56,8 +56,12 @@ export default {
         dateOfDonation: this.today
       },
       withCredentials: true
-    }).then((res) => {
+    })
+    .then((res) => {
       this.count1 = res.data.count
+    })
+    .catch((err) => {
+      throw err
     })
 
   axios.get(
@@ -71,6 +75,9 @@ export default {
     .then((res) => {
       this.count2 = res.data.count
     })
+    .catch((err) => {
+      throw err
+    })
 
     axios.get(
       process.env.API_URL + '/admin/requirements',
@@ -82,6 +89,9 @@ export default {
       })
       .then((res) => {
         this.count3 = res.data.count
+      })
+      .catch((err) => {
+        throw err
       })
   }
 }
