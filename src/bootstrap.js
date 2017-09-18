@@ -2,7 +2,7 @@ import axios from 'axios'
 window.axios = axios
 import {store} from './store/store'
 
-
+import Vue from 'vue'
 
 window.axios.defaults.headers.common = {
   // 'content-type': 'application/json',
