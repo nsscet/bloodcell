@@ -20,14 +20,13 @@
 
     </div>
     <br>
-    <div class="row">
-      <h2>Blood Requirement Posts</h2>
-    </div>
+    <Requirements></Requirements>
   </div>
 
 </template>
 
 <script>
+import Requirements from './RequirementsList.vue'
 import panel from './panel.vue'
 let count2 = 18, count1 , count3 = 20, count4 = 78;
 var today = new Date()
@@ -46,7 +45,8 @@ export default {
     return data
   },
   components: {
-    panel
+    panel,
+    Requirements
   },
   mounted() {
     axios.get(
@@ -93,6 +93,7 @@ export default {
       .catch((err) => {
         throw err
       })
+
   }
 }
 </script>
