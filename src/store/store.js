@@ -9,6 +9,8 @@ export const store = new Vuex.Store({
     // accessToken:null,
     isAuthenticated:false,
     usernameErrors:null,
+    serverErrors: null,
+    passwordErrors: null,
     donor : {
       donorId: null,
       name: null,
@@ -26,6 +28,12 @@ export const store = new Vuex.Store({
     },
     isNotAValidUsername(state){
       state.usernameErrors = "Enter a valid username"
+    },
+    updateServerErrors(state, message){
+      state.serverErrors = message
+    },
+    updatePasswordErrors(state, message){
+      state.passwordErrors = message
     },
     isAValidMobileNumber(state){
       state.isValidMobileNumber = true

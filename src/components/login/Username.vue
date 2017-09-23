@@ -5,6 +5,9 @@
       <div class="alert" v-show="usernameErrors">
         {{usernameErrors}}
       </div>
+      <div class="alert" v-show="serverErrors">
+        {{serverErrors}}
+      </div>
     </div>
     <div class="row algin-items-end">
       <button type="button" @click="submit(username)" class="btn btn-primary ml-auto next-button">NEXT</button>
@@ -28,6 +31,9 @@ export default {
     },
     usernameErrors(){
       return this.$store.state.usernameErrors;
+    },
+    serverErrors(){
+      return this.$store.state.serverErrors;
     }
   },
   methods: {
@@ -39,27 +45,37 @@ export default {
         this.$store.commit('isNotAValidUsername')
       }
     },
-    submit (username) {
-      var self = this
-      var data = querystring.stringify({ username })
+    updateServerErrors: function(message){
+      this.$store.commit('updateServerErrors', message);
+    },
 
-      window.axios({
-        method: 'post',
-        url: process.env.API_URL+'/isValidUsername',
-        data
-      })
-      .then(function (res) {
-        if(res.data.userId) {
-          self.updateUsername(username)
-        }
-        else{
-          self.updateUsername(null)
-        }
-      })
-      .catch(function (err) {
-        console.log('ERROR::', err);
-        throw err
-      })
+    submit (username) {
+      if(!username)
+        this.updateUsername(null)
+
+      else {
+        var self = this
+        var data = querystring.stringify({ username })
+
+        window.axios({
+          method: 'post',
+          url: process.env.API_URL+'/isValidUsername',
+          data
+        })
+        .then(function (res) {
+          if(res.data.userId) {
+            self.updateUsername(username)
+          }
+          else{
+            self.updateUsername(null)
+          }
+        })
+        .catch(function (err) {
+          self.updateServerErrors(err.message);
+          throw err
+          console.log(self.$store.state.serverErrors);
+        })
+      }
     }
   }
 }

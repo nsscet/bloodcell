@@ -40,5 +40,6 @@
 }
 
 .alert{
-  color: red
+  color: red;
+  padding-left: 0px;
 }

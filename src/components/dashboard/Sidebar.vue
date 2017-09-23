@@ -11,7 +11,7 @@
       </li>
       <li class="nav-item">
         <hr>
-        <router-link  class="nav-link" to="/dashboard"><i class="fa fa-home"></i> Home</router-link>
+        <router-link  class="nav-link" to="/"><i class="fa fa-home"></i> Home</router-link>
       </li>
 
       <li class="nav-item">
@@ -25,7 +25,12 @@
       <li class="nav-item">
         <router-link class="nav-link" to="/users"><i class="fa fa-plus"></i> New User</router-link>
       </li>
+
+      <li class="nav-item">
+        <router-link to="/searchdonors" class="nav-link"><i class="fa fa-search"></i> Search Donors</router-link>
+      </li>
     </ul>
+
   </nav>
 
 </template>

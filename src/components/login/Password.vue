@@ -3,6 +3,9 @@
     <div class="row algin-items-start">
       <input type="password" v-model="password" placeholder="Password" class="form-control w-100 input">
     </div>
+    <div class="alert" v-show="passwordErrors">
+      {{passwordErrors}}
+    </div>
     <div class="row algin-items-end">
       <button type="submit" @click="login(password)" class="btn btn-primary ml-auto next-button">LOGIN</button>
     </div>
@@ -18,11 +21,15 @@ export default {
   data: function(){
     return data
   },
+  computed: {
+    passwordErrors(){
+      return this.$store.state.passwordErrors
+    }
+  },
   methods: {
-    // updateToken: function(token){
-    //   this.$store.commit('updateToken' , token)
-    //   this.$router.push('/getmobile')
-    // },
+    updatePasswordErrors(message){
+      this.$store.commit('updatePasswordErrors', message);
+    },
     login: function(password){
       var self = this
       var username = self.$store.state.username
@@ -35,13 +42,16 @@ export default {
         withCredentials: true
       })
       .then(function(res){
-        // console.log(res.data);
         if(res.data.success){
           self.$store.commit('loginSuccess')
           self.$router.push('/dash')
         }
+        else{
+          self.updatePasswordErrors("Wrong login credentials");
+        }
       })
       .catch(function(err){
+        self.updatePasswordErrors(err.message);
         console.log(err);
         throw err;
       })
