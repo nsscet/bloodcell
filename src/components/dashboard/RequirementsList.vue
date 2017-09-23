@@ -14,9 +14,9 @@
           Date of posting: {{requirement.timeOfPosting}}
           <br>
           Type: {{requirement.typeOfRequirement}}
-          <hr>
-          <button type="button" name="button" class="btn btn-success" @click="editRequirement"><i class="fa fa-check-circle"></i> Close</button>
-          <button type="button" name="button" @click="editRequirement" class="btn btn-secondary"><i class="fa fa-pencil"></i> Edit</button>
+          <!-- <hr> -->
+          <!-- <button type="button" name="button" class="btn btn-success" @click="closeRequirement"><i class="fa fa-check-circle"></i> Close</button> -->
+          <!-- <button type="button" name="button" @click="editRequirement" class="btn btn-secondary"><i class="fa fa-pencil"></i> Edit</button> -->
         </div>
       </div>
       <br>
@@ -32,6 +32,19 @@ export default {
   data: () => {
     return {
       requirements
+    }
+  },
+  methods: {
+    closeRequirement: ()=>{
+      postData: {
+
+      }
+      axios.post(
+        process.env.API_URL + '/admin/requirements',
+        {
+          withCredentials:true
+        }
+      )
     }
   },
   mounted(){

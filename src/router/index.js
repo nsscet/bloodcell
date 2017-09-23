@@ -11,6 +11,7 @@ import registerDonor from '@/components/registerDonor/Master'
 import Success from '@/components/success'
 import Dashboard from '@/components/dashboard/Master'
 import searchDonors from '@/components/searchDonor/Master'
+import postRequirement from '@/components/postRequirement/Master'
 
 Vue.use(Router)
 
@@ -87,6 +88,18 @@ export default new Router({
     {
       path: '/searchdonors',
       component: searchDonors,
+      beforeEnter: (to , from , next) => {
+        if(store.state.isAuthenticated){
+          next();
+        }
+        else{
+          redirect: '/login'
+        }
+      }
+    },
+    {
+      path: '/postrequirement',
+      component: postRequirement,
       beforeEnter: (to , from , next) => {
         if(store.state.isAuthenticated){
           next();

@@ -3,7 +3,7 @@
     <div class="row">
 
       <div class="col-sm-3 col-md-3 card-container">
-        <panel link="/students" icon="fa fa-tint" title="Donations" :count="count1"></panel>
+        <panel link="/getmobile" icon="fa fa-tint" title="Donations" :count="count1"></panel>
       </div>
 
       <div class="col-sm-3 col-md-3 card-container">

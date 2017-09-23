@@ -19,7 +19,7 @@
       </li>
 
       <li class="nav-item">
-        <router-link class="nav-link" to="/users"><i class="fa fa-plus"></i> New Requirement</router-link>
+        <router-link class="nav-link" to="/postrequirement"><i class="fa fa-plus"></i> New Requirement</router-link>
       </li>
 
       <li class="nav-item">

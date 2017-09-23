@@ -12,36 +12,11 @@
 
         </div>
       </div>
-
-
     </h4>
     <h6 class="card-text card-text-dash mb-2" v-text="title"></h6>
-      <router-link class="link" :to="link">More Info <i class="fa fa-external-link"></i></router-link>
   </div>
 </div>
-  <!-- <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-sm-6">
-            <i :class="icon" class="fa-5x"></i>
-        </div>
-        <div class="col-sm-6">
-            <span class="count">{{count}}</span >
-        </div>
-      </div>
 
-    </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-8" v-text="title">
-
-          </div>
-          <div class="col-md-4">
-              <router-link :to="link">More Info <i class="fa fa-external-link"></i></router-link>
-          </div>
-        </div>
-      </div>
-    </div> -->
 </template>
 
 <script>
