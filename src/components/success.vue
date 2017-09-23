@@ -11,7 +11,7 @@
           <div class="row align-items-start">
             <div class="col">
               <h3>Success!</h3>
-              The donation was successfully registered!
+              The operation was successfull!
             </div>
           </div>
           <div class="row align-items-center">

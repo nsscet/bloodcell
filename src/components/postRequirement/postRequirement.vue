@@ -13,8 +13,16 @@
             <input required type="text" v-model="patientId" placeholder="Patient ID" class="form-control w-100 input">
             <input required type="text" v-model ="bloodGroup" placeholder="Blood Group" class="form-control w-100 input">
             <input required type="text" v-model ="quantity" placeholder="Quantity" class="form-control w-100 input">
-            <input required type="text" v-model ="hospitalId" placeholder="Hospital ID" class="form-control w-100 input">
-            <input required type="text" v-model ="typeOfRequirement" placeholder="Type Of Requirement" class="form-control w-100 input">
+            <span class="small">Hospital</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="hospitalId">
+              <option class="input" selected value="MCH">MCH</option>
+              <option class="input" value="RCC">RCC</option>
+            </select>
+            <span class="small">Type of Requirement</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="typeOfRequirement">
+              <option class="input" selected value="B">Normal Donation</option>
+              <option class="input" value="P">Platelet Donation</option>
+            </select>
           </div>
           <div class="row algin-items-end">
             <button type="button" @click="submit()" class="btn btn-primary ml-auto next-button">NEXT</button>
@@ -45,9 +53,7 @@ export default {
     return data
   },
   computed: {
-    mobile(){
-      return this.$store.state.donor.mobileNumber
-    }
+
   },
   methods: {
     submit: function(){
@@ -66,7 +72,6 @@ export default {
         withCredentials: true
       })
       .then(function(res){
-        console.log(res.data.requirement);
           self.$router.push('/success')
       })
       .catch(function(err){
