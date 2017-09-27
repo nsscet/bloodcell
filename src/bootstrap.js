@@ -15,3 +15,6 @@ window.axios.defaults.headers.common = {
 
 import querystring from 'querystring'
 window.querystring = querystring
+
+import localforage from 'localforage'
+window.localforage = localforage

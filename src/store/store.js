@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
+import '../bootstrap'
+
+
+import * as plugins from './plugins'
 
 export const store = new Vuex.Store({
   state: {
@@ -21,9 +25,13 @@ export const store = new Vuex.Store({
     },
     isValidMobileNumber:false
   },
+  plugins: [plugins.loadFromCache],
   mutations: {
     isAValidUsername(state, username){
       state.isValidUsername = true
+    },
+    loadUsernameFromCache(state, username){
+      state.isAuthenticated = true
       state.username = username
     },
     isNotAValidUsername(state){
@@ -40,6 +48,10 @@ export const store = new Vuex.Store({
     },
     loginSuccess(state){
       state.isAuthenticated = true
+      localforage.setItem('username', state.username)
+      .catch((err) => {
+        throw err;
+      })
     },
     logout(state){
       state.isAuthenticated = false
