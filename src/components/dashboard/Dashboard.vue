@@ -15,7 +15,7 @@
       </div>
 
       <div class="col-sm-3 col-md-3 card-container">
-        <panel link="/permissions" icon="fa fa-user-secret" title="Prop" :count="count4"></panel>
+        <panel link="/permissions" icon="fa fa-user-secret" title="Users" :count="count4"></panel>
       </div>
 
     </div>
@@ -94,6 +94,18 @@ export default {
         throw err
       })
 
+
+    axios.get(
+      process.env.API_URL + '/admin/users',
+      {
+        withCredentials: true
+      })
+      .then((res) => {
+        this.count4 = res.data.count
+      })
+      .catch((err) => {
+        throw err
+      })
   }
 }
 </script>
