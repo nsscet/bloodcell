@@ -33,6 +33,7 @@ export const store = new Vuex.Store({
     loadUsernameFromCache(state, username){
       state.isAuthenticated = true
       state.username = username
+      state.isValidUsername = true
     },
     isNotAValidUsername(state){
       state.usernameErrors = "Enter a valid username"
@@ -54,7 +55,14 @@ export const store = new Vuex.Store({
       })
     },
     logout(state){
+      store.commit('clearCache')
       state.isAuthenticated = false
+    },
+    clearCache(state){
+      localforage.removeKey('username')
+      .catch((err) => {
+        throw err;
+      })
     },
     clearDonorDetails(state){
       for(var key in state.donor) state.donor[key] = null
