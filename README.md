@@ -1,6 +1,6 @@
 # bloodcell
 
-> Front end for vue js app for nss blood cell cet
+> Front end for voluntary blood donation application.
 
 ## Build Setup
 

@@ -29,6 +29,7 @@ export const store = new Vuex.Store({
   mutations: {
     isAValidUsername(state, username){
       state.isValidUsername = true
+      state.username = username
     },
     loadUsernameFromCache(state, username){
       state.isAuthenticated = true
