@@ -34,7 +34,6 @@ export default {
       var self = this
       var username = self.$store.state.username
       var credentials = { username:username , password:password }
-
       window.axios({
         method: 'post',
         url: process.env.API_URL + '/login',
