@@ -12,22 +12,22 @@ import Success from '@/components/success'
 import Dashboard from '@/components/dashboard/Master'
 import searchDonors from '@/components/searchDonor/Master'
 import postRequirement from '@/components/postRequirement/Master'
+import createUser from '@/components/createUser/Master'
 
 Vue.use(Router)
 
 export default new Router({
 
-  mode:'history',
+  mode: 'history',
 
   routes: [
     {
       path: '/',
       component: Login,
-      beforeEnter: (to , from , next) => {
-        if(!store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (!store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/getmobile'
         }
       }
@@ -40,11 +40,10 @@ export default new Router({
     {
       path: '/login',
       component: Login,
-      beforeEnter: (to , from , next) => {
-        if(!store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (!store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/getmobile'
         }
       }
@@ -52,11 +51,10 @@ export default new Router({
     {
       path: '/registerdonation',
       component: registerDonation,
-      beforeEnter: (to , from , next) => {
-        if(store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/login'
         }
       }
@@ -64,11 +62,10 @@ export default new Router({
     {
       path: '/getmobile',
       component: getMobile,
-      beforeEnter: (to , from , next) => {
-        if(store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/login'
         }
       }
@@ -76,11 +73,10 @@ export default new Router({
     {
       path: '/registerdonor',
       component: registerDonor,
-      beforeEnter: (to , from , next) => {
-        if(store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/login'
         }
       }
@@ -88,11 +84,21 @@ export default new Router({
     {
       path: '/searchdonors',
       component: searchDonors,
-      beforeEnter: (to , from , next) => {
-        if(store.state.isAuthenticated){
-          next();
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
+          redirect: '/login'
         }
-        else{
+      }
+    },
+    {
+       path: '/users',
+      component: createUser,
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/login'
         }
       }
@@ -100,15 +106,15 @@ export default new Router({
     {
       path: '/postrequirement',
       component: postRequirement,
-      beforeEnter: (to , from , next) => {
-        if(store.state.isAuthenticated){
-          next();
-        }
-        else{
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
           redirect: '/login'
         }
       }
     },
+    
     {
       path: '/success',
       component: Success

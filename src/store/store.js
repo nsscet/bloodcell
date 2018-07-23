@@ -3,19 +3,18 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import '../bootstrap'
 
-
 import * as plugins from './plugins'
 
 export const store = new Vuex.Store({
   state: {
     isValidUsername: false,
-    username:null,
+    username: null,
     // accessToken:null,
-    isAuthenticated:false,
-    usernameErrors:null,
+    isAuthenticated: false,
+    usernameErrors: null,
     serverErrors: null,
     passwordErrors: null,
-    donor : {
+    donor: {
       donorId: null,
       name: null,
       place: null,
@@ -23,58 +22,58 @@ export const store = new Vuex.Store({
       bloodGroup: null,
       email: null
     },
-    isValidMobileNumber:false
+    isValidMobileNumber: false
   },
   plugins: [plugins.loadFromCache],
   mutations: {
-    isAValidUsername(state, username){
+    isAValidUsername (state, username) {
       state.isValidUsername = true
       state.username = username
     },
-    loadUsernameFromCache(state, username){
+    loadUsernameFromCache (state, username) {
       state.isAuthenticated = true
       state.username = username
       state.isValidUsername = true
     },
-    isNotAValidUsername(state){
-      state.usernameErrors = "Enter a valid username"
+    isNotAValidUsername (state) {
+      state.usernameErrors = 'Enter a valid username'
     },
-    updateServerErrors(state, message){
+    updateServerErrors (state, message) {
       state.serverErrors = message
     },
-    updatePasswordErrors(state, message){
+    updatePasswordErrors (state, message) {
       state.passwordErrors = message
     },
-    isAValidMobileNumber(state){
+    isAValidMobileNumber (state) {
       state.isValidMobileNumber = true
     },
-    loginSuccess(state){
+    loginSuccess (state) {
       state.isAuthenticated = true
       localforage.setItem('username', state.username)
       .catch((err) => {
-        throw err;
+        throw err
       })
     },
-    logout(state){
+    logout (state) {
       store.commit('clearCache')
       state.isAuthenticated = false
     },
-    clearCache(state){
+    clearCache (state) {
       localforage.removeKey('username')
       .catch((err) => {
-        throw err;
+        throw err
       })
     },
-    clearDonorDetails(state){
-      for(var key in state.donor) state.donor[key] = null
+    clearDonorDetails (state) {
+      for (var key in state.donor) state.donor[key] = null
     },
-    updateMobile(state, mobile){
+    updateMobile (state, mobile) {
       state.donor.mobileNumber = mobile
     },
-    updateId(state , id){
+    updateId (state, id) {
       state.donor.donorId = id
     },
-    updateDonor(state, donor){
+    updateDonor (state, donor) {
       state.donor.name = donor.name
       state.donor.donorId = donor.donorId
       state.donor.email = donor.email

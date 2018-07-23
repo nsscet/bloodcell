@@ -29,58 +29,55 @@
 </template>
 
 <script>
-import Navbar from '../navbar/Master'
-var isAValidMobile , mobile
+import Navbar from "../navbar/Master";
+var isAValidMobile, mobile;
 var data = {
   mobile
-}
+};
 export default {
-  data: function(){
-    return data
+  data: function() {
+    return data;
   },
   methods: {
-
-    submit: function(mobileNumber){
-      var self = this
+    submit: function(mobileNumber) {
+      var self = this;
       var postData = {
         mobileNumber
-      }
-      window.axios({
-        url:process.env.API_URL + '/admin/donor',
-        method: 'get',
-        params: postData,
-        withCredentials: true
-      })
-      .then(function(res){
-        if(res.data.Donors[0]){
-          self.$store.commit('updateDonor' , res.data.Donors[0])
-          self.$store.commit('isAValidMobileNumber')
-          self.$router.push('/registerdonation')
-        }
-        else{
-          self.$store.commit('updateMobile' , postData.mobileNumber)
-          self.$router.push('/registerdonor')
-        }
-
-      })
-      .catch(function(err){
-        throw err;
-      })
+      };
+      window
+        .axios({
+          url: process.env.API_URL + "/admin/donor",
+          method: "get",
+          params: postData,
+          withCredentials: true
+        })
+        .then(function(res) {
+          if (res.data.Donors[0]) {
+            self.$store.commit("updateDonor", res.data.Donors[0]);
+            self.$store.commit("isAValidMobileNumber");
+            self.$router.push("/registerdonation");
+          } else {
+            self.$store.commit("updateMobile", postData.mobileNumber);
+            self.$router.push("/registerdonor");
+          }
+        })
+        .catch(function(err) {
+          throw err;
+        });
     }
-
   },
   computed: {
-    mobileNumber(){
-      return this.$store.state.mobileNumber
+    mobileNumber() {
+      return this.$store.state.mobileNumber;
     }
   },
-  created(){
-    this.mobile = ''
+  created() {
+    this.mobile = "";
   },
   components: {
     Navbar
   }
-}
+};
 </script>
 
 <style src="../../assets/css/forms.css"></style>
