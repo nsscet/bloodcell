@@ -80,6 +80,9 @@ export const store = new Vuex.Store({
       state.donor.place = donor.place
       state.donor.bloodGroup = donor.bloodGroup
       state.donor.mobileNumber = donor.mobileNumber
+    },
+    notValidOrganisation(state){
+      state.usernameErrors = 'Username Exists'
     }
   }
 })
