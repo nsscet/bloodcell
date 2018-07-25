@@ -44,8 +44,12 @@ export default {
           field: "mobileNumber"
         },
         {
-          label: "Place",
-          field: "place"
+          label: "Branch",
+          field: "branch"
+        },
+        {
+          label: "Year Joined",
+          field: "year_joined"
         },
         {
           label: "Date Added",

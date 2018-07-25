@@ -10,7 +10,7 @@
       <div class="col">
         <div class="container form-group">
           <div class="row algin-items-start">
-            <span class="small" >Donor ID</span>
+            <span class="small" >College ID</span>
             <span required type="text" class="form-control w-100 input">{{donorId}}</span>
             <span class="small">Name</span>
             <span required type="text" class="form-control w-100 input">{{name}}</span>
