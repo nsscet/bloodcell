@@ -13,7 +13,7 @@ import Dashboard from '@/components/dashboard/Master'
 import searchDonors from '@/components/searchDonor/Master'
 import postRequirement from '@/components/postRequirement/Master'
 import createUser from '@/components/createUser/Master'
-
+import uploadPage from '@/components/uploadPage/Master'
 Vue.use(Router)
 
 export default new Router({
@@ -114,7 +114,17 @@ export default new Router({
         }
       }
     },
-    
+    {
+      path:'/upload',
+      component: uploadPage,
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
+          redirect: '/login'
+        }
+      }
+    },
     {
       path: '/success',
       component: Success
