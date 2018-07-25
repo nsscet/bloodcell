@@ -13,8 +13,36 @@
             <input required type="text" v-model="name" placeholder="Name" class="form-control w-100 input">
             <input required type="text" v-model="place" placeholder="Place of stay" class="form-control w-100 input">
             <input required type="text" v-model ="email" placeholder="email" class="form-control w-100 input">
-            <input required type="text" v-model ="donorId" placeholder="Donor ID" class="form-control w-100 input">
-            <input required type="text" v-model ="bloodGroup" placeholder="Blood Group" class="form-control w-100 input">
+            <input required type="text" v-model ="donorId" placeholder="College ID" class="form-control w-100 input">
+            <!-- <input required type="text" v-model ="bloodGroup" placeholder="Blood Group" class="form-control w-100 input"> -->
+            <input required type="text" v-model ="yearOfJoin" placeholder="Year of Join" class="form-control w-100 input">
+            <span class="small">Blood Group</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="bloodGroup">
+              <option class="input" selected value="0+ve">O +ve</option>
+              <option class="input" value="O-ve">O-ve</option>
+              <option class="input" value="A+ve">A+ve</option>
+              <option class="input" value="A-ve">A-ve</option>
+              <option class="input" value="B+ve">B+ve</option>
+              <option class="input" value="B-ve">B-ve</option>
+              <option class="input" value="AB+ve">AB+ve</option>
+              <option class="input" value="AB-ve">AB-ve</option>
+
+            </select>
+            <!-- <input required type="text" v-model ="branch" placeholder="Branch" class="form-control w-100 input"> -->
+            <span class="small">Branch</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="branch">
+              <option class="input" selected value="Mechanical">Mechanical</option>
+              <option class="input" value="Civil">Civil</option>
+              <option class="input" value="Electrical">Electrical</option>
+              <option class="input" value="Electronics">Electronics</option>
+              <option class="input" value="Computer">Computer Science</option>
+              <option class="input" value="Architecture">Architecture</option>
+              <option class="input" value="Applied">Applied </option>
+              <option class="input" value="Industrial">Industrial </option>
+              <option class="input" value="MCA">MCA</option>
+
+
+            </select>
           </div>
           <div class="row algin-items-end">
             <button type="button" @click="submit()" class="btn btn-primary ml-auto next-button">NEXT</button>
@@ -32,13 +60,15 @@
 </template>
 
 <script>
-var name, place, email, donorId, bloodGroup
+var name, place, email, donorId, bloodGroup,branch,yearOfJoin
 var data = {
   name,
   place,
   email,
   donorId,
-  bloodGroup
+  bloodGroup,
+  branch,
+  yearOfJoin
 }
 export default {
   data: function(){
@@ -58,7 +88,9 @@ export default {
         mobileNumber: this.mobile,
         email: this.email,
         bloodGroup: this.bloodGroup,
-        donorId: this.donorId
+        donorId: this.donorId,
+        branch:this.branch,
+        yearOfJoin:this.yearOfJoin
       }
       window.axios({
         url: process.env.API_URL + '/admin/donor',
