@@ -53,6 +53,7 @@ export default {
         })
         .then(function(res) {
           if (res.data.Donors[0]) {
+            console.log(res.data.Donors[0])
             self.$store.commit("updateDonor", res.data.Donors[0]);
             self.$store.commit("isAValidMobileNumber");
             self.$router.push("/registerdonation");
