@@ -23,12 +23,28 @@ export default {
             },
             uploadFile:()=>{
                 const url = process.env.API_URL+'/upload'
+                var self = this
+                const headerType = {'content-type':'multipart/form-data'}
                 var fileData = new FormData()
                 fileData.append('file',this.selectedFile,this.selectedFile.name)
-                window.axios.post(url,fileData).then((res)=>{
-                    console.log(res)
+                window.axios(
+                   { 
+                     url: url,
+                     method:'post',
+                     data:fileData,
+                     withCredentials: true,
+                     headers:headerType
+                   }
+                ).then((res)=>{
+                    console.log(res.data.success)
+                    if(res.data.success  === true){
+                        self.$router.push('/success')
+                        console.log(res)
+
+                    }
                 }).catch((err)=>{
-                    console.log(err)
+                    // console.log({"Error":err})
+
                 })
             }
         }
