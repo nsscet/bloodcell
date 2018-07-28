@@ -5,20 +5,36 @@
             <span>NSS BLOOD CELL</span>
         </div>
         <div id ='links'>
+        <form  v-if="!this.isLoggedIn">
             <router-link to="/login" class="">Login</router-link>
-
+        </form>
             <router-link to="/requirementsPage" class="">Requirements</router-link>
+
         </div>
     </div>    
 </template>
 
+
 <script>
 import NavBar from "../navbar/Master";
 export default {
+  data: () => {
+    return {
+
+    }
+  },
   components: {
     NavBar
+  },
+  computed: {
+    isLoggedIn(){
+      return this.$store.state.isAuthenticated
+    },
+    username(){
+      return this.$store.state.username
+    }
   }
-};
+}
 </script>
 
 <style>
