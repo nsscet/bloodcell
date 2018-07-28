@@ -49,10 +49,8 @@ export default {
   },
   mounted(){
     axios.get(
-      process.env.API_URL + '/admin/requirements',
-      {
-        withCredentials: true
-      })
+       'http://localhost:3000/public/getrequirements'
+      )
       .then((res) => {
         this.requirements = res.data.requirements
       })

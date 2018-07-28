@@ -14,6 +14,8 @@ import searchDonors from '@/components/searchDonor/Master'
 import postRequirement from '@/components/postRequirement/Master'
 import createUser from '@/components/createUser/Master'
 import uploadPage from '@/components/uploadPage/Master'
+import landingPage from '@/components/landingPage/Master'
+import requirementsPage from '@/components/requirementPage/Master'
 Vue.use(Router)
 
 export default new Router({
@@ -23,14 +25,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Login,
-      beforeEnter: (to, from, next) => {
-        if (!store.state.isAuthenticated) {
-          next()
-        } else {
-          redirect: '/getmobile'
-        }
-      }
+      component: landingPage
+      // beforeEnter: (to, from, next) => {
+      //   if (!store.state.isAuthenticated) {
+      //     next()
+      //   } else {
+      //     redirect: '/getmobile'
+      //   }
+      // }
     },
     {
       path: '/dash',
@@ -128,6 +130,9 @@ export default new Router({
     {
       path: '/success',
       component: Success
+    },{
+      path:'/requirementsPage',
+      component: requirementsPage
     }
   ]
 })
