@@ -17,11 +17,11 @@ export default {
         }
         },
         methods:{
-            onFileSelected:(event)=>{
+            onFileSelected:function(event){
                 this.selectedFile = event.target.files[0]
                 console.log(this.selectedFile)
             },
-            uploadFile:()=>{
+            uploadFile:function(){
                 const url = process.env.API_URL+'/upload'
                 var self = this
                 const headerType = {'content-type':'multipart/form-data'}
