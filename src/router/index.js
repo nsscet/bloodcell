@@ -37,7 +37,14 @@ export default new Router({
     {
       path: '/dash',
       component: Dashboard,
-      name: 'dash'
+      name: 'dash',
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
+          redirect: '/login'
+        }
+      }
     },
     {
       path: '/login',

@@ -5,7 +5,7 @@
       </a>
       <form class="form-inline" v-if="this.isLoggedIn">
         <span class="login-text text-uppercase"><span class="fa fa-user"></span><strong><router-link class="login-text" to='/dash'> {{this.username}}</router-link></strong> </span>
-        <button class="btn btn-danger my-2 my-sm-0 logout-btn" type="submit">LOGOUT</button>
+        <button class="btn btn-danger my-2 my-sm-0 logout-btn" type="submit" @click="logout">LOGOUT</button>
       </form>
     </nav>
 </template>
@@ -23,6 +23,25 @@ export default {
     },
     username(){
       return this.$store.state.username
+    }
+  },
+  methods:{
+    logout(){
+      const url = process.env.API_URL+'/logout'
+      window.axios(
+        {
+          url:url,
+          method:'get',
+          withCredentials: true
+        }
+      ).then((res)=>{
+        console.log(res)
+        this.$store.commit('logout')
+        this.$routes.push('/')
+      }).catch((err)=>{
+        console.log(err)
+      })
+      // console.log("Logged Out")
     }
   }
 }

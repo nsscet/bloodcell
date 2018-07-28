@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 Vue.use(Vuex)
 import '../bootstrap'
 
@@ -59,7 +60,7 @@ export const store = new Vuex.Store({
       state.isAuthenticated = false
     },
     clearCache (state) {
-      localforage.removeKey('username')
+      localforage.removeItem('username')
       .catch((err) => {
         throw err
       })
