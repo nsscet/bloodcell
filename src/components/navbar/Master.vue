@@ -5,14 +5,15 @@
       </a>
       <form class="form-inline" v-if="this.isLoggedIn">
         <span class="login-text text-uppercase"><span class="fa fa-user"></span><strong><router-link class="login-text" to='/dash'> {{this.username}}</router-link></strong> </span>
-        <button class="btn btn-danger my-2 my-sm-0 logout-btn" type="submit" @click="logout">LOGOUT</button>
+        
       </form>
+      <button class="btn btn-danger my-2 my-sm-0 logout-btn" v-if="this.isLoggedIn" v-on:click="logout">LOGOUT</button>
     </nav>
 </template>
 
 <script>
 export default {
-  data: () => {
+  data: function(){
     return {
 
     }
@@ -26,7 +27,9 @@ export default {
     }
   },
   methods:{
-    logout(){
+    logout: function(){
+    var self = this
+    console.log("hello")
       const url = process.env.API_URL+'/logout'
       window.axios(
         {
@@ -36,8 +39,8 @@ export default {
         }
       ).then((res)=>{
         console.log(res)
-        this.$store.commit('logout')
-        this.$routes.push('/')
+        self.$store.commit('logout')
+        self.$router.push('/')
       }).catch((err)=>{
         console.log(err)
       })
