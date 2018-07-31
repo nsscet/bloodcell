@@ -29,7 +29,7 @@ export default {
   methods:{
     logout: function(){
     var self = this
-    console.log("hello")
+    
       const url = process.env.API_URL+'/logout'
       window.axios(
         {
@@ -38,7 +38,7 @@ export default {
           withCredentials: true
         }
       ).then((res)=>{
-        console.log(res)
+       
         self.$store.commit('logout')
         self.$router.push('/')
       }).catch((err)=>{

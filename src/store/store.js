@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     isValidUsername: false,
     username: null,
     // accessToken:null,
+    role:null,
     isAuthenticated: false,
     usernameErrors: null,
     serverErrors: null,
@@ -48,8 +49,9 @@ export const store = new Vuex.Store({
     isAValidMobileNumber (state) {
       state.isValidMobileNumber = true
     },
-    loginSuccess (state) {
+    loginSuccess (state,role) {
       state.isAuthenticated = true
+      state.role = role
       localforage.setItem('username', state.username)
       .catch((err) => {
         throw err

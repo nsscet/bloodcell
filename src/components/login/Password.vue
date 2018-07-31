@@ -42,7 +42,8 @@ export default {
       })
       .then(function(res){
         if(res.data.success){
-          self.$store.commit('loginSuccess')
+          self.$store.commit('loginSuccess',res.data.role)
+          console.log(self.$store.state.role)
           self.$router.push('/dash')
         }
         else{
