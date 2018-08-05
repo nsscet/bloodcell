@@ -19,7 +19,6 @@
       </div>
 
     </div>
-    <br>
     <Requirements></Requirements>
   </div>
 
