@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import * as Cookies from 'js-cookie'
 
 Vue.use(Vuex)
 import '../bootstrap'
@@ -26,13 +28,16 @@ export const store = new Vuex.Store({
     },
     isValidMobileNumber: false
   },
-  plugins: [plugins.loadFromCache],
+  plugins: [
+    createPersistedState()
+  ],
   mutations: {
     isAValidUsername (state, username) {
       state.isValidUsername = true
       state.username = username
     },
     loadUsernameFromCache (state, username) {
+      console.log('loadfromcache')
       state.isAuthenticated = true
       state.username = username
       state.isValidUsername = true

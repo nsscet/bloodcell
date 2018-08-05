@@ -16,6 +16,7 @@ import createUser from '@/components/createUser/Master'
 import uploadPage from '@/components/uploadPage/Master'
 import landingPage from '@/components/landingPage/Master'
 import requirementsPage from '@/components/requirementPage/Master'
+
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,7 @@ export default new Router({
       component: Dashboard,
       name: 'dash',
       beforeEnter: (to, from, next) => {
+        console.log("dash")
         if (store.state.isAuthenticated) {
           next()
         } else {
