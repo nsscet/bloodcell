@@ -3,7 +3,7 @@
     <h2>Requirements</h2>
     <hr>
     <div class="" v-for="requirement in requirements">
-      <div class="card" v-if="requirement.isClosed == false">
+      <div class="card" v-if="!requirement.isClosed">
         <div class="card-body">
           <strong>{{requirement.quantity}} units of {{requirement.bloodGroup}} blood required</strong>
           <br>
@@ -14,9 +14,6 @@
           Date of posting: {{requirement.timeOfPosting}}
           <br>
           Type: {{requirement.typeOfRequirement}}
-          <hr>
-          <button type="button" name="button" @click="addDonor" class="btn btn-secondary"><i class="fa fa-plus"></i> Add donor</button>
-          <button type="button" name="button" class="btn btn-success" @click="closeRequirement(requirement)"><i class="fa fa-check-circle"></i> Close</button>
         </div>
       </div>
       <br>
@@ -35,23 +32,16 @@ export default {
     }
   },
   methods: {
-    closeRequirement: (requirement)=>{
+    closeRequirement: ()=>{
       postData: {
 
       }
-      window.axios({
-        method:'put',
-        url:process.env.API_URL + '/admin/requirements',
-        withCredentials:true,
-        data:requirement
-      }).then(()=>{
-        requirement.isClosed = true
-      })
-       
-    
-    },
-    addDonor:()=>{
-
+      axios.post(
+        process.env.API_URL + '/admin/requirements',
+        {
+          withCredentials:true
+        }
+      )
     }
   },
   mounted(){
@@ -59,9 +49,7 @@ export default {
        'http://localhost:3000/public/getrequirements'
       )
       .then((res) => {
-    
         this.requirements = res.data.requirements
-
       })
       .catch((err) => {
         throw err

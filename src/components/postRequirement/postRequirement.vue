@@ -11,8 +11,19 @@
         <div class="container form-group">
           <div class="row algin-items-start">
             <input required type="text" v-model="patientId" placeholder="Patient ID" class="form-control w-100 input">
-            <input required type="text" v-model ="bloodGroup" placeholder="Blood Group" class="form-control w-100 input">
             <input required type="text" v-model ="quantity" placeholder="Quantity" class="form-control w-100 input">
+            <span class="small">Blood Group</span>
+            <select class=" form-control w-100 custom-select" name="O+ve" v-model="bloodGroup">
+              <option class="input" selected value="0+ve">O+ve</option>
+              <option class="input" value="O-ve">O-ve</option>
+              <option class="input" value="A+ve">A+ve</option>
+              <option class="input" value="A-ve">A-ve</option>
+              <option class="input" value="B+ve">B+ve</option>
+              <option class="input" value="B-ve">B-ve</option>
+              <option class="input" value="AB+ve">AB+ve</option>
+              <option class="input" value="AB-ve">AB-ve</option>
+
+            </select>
             <span class="small">Hospital</span>
             <select class=" form-control w-100 custom-select" name="" v-model="hospitalId">
               <option class="input" selected value="MCH">MCH</option>

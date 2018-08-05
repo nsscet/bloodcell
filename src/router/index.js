@@ -63,7 +63,7 @@ export default new Router({
       path: '/registerdonation',
       component: registerDonation,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated&&(store.state.role =='sadmin' )) {
           next()
         } else {
           redirect: '/login'
@@ -74,7 +74,7 @@ export default new Router({
       path: '/getmobile',
       component: getMobile,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'
@@ -85,7 +85,7 @@ export default new Router({
       path: '/registerdonor',
       component: registerDonor,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'
@@ -96,7 +96,7 @@ export default new Router({
       path: '/searchdonors',
       component: searchDonors,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'
@@ -107,7 +107,7 @@ export default new Router({
        path: '/users',
       component: createUser,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated&&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'
@@ -118,7 +118,7 @@ export default new Router({
       path: '/postrequirement',
       component: postRequirement,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'
@@ -129,7 +129,7 @@ export default new Router({
       path:'/upload',
       component: uploadPage,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
           next()
         } else {
           redirect: '/login'

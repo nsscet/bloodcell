@@ -7,7 +7,7 @@
 
 <script>
 import NavBar from '../navbar/Master'
-import requirementList from '../dashboard/RequirementsList'
+import requirementList from './requirementList'
 export default {
     components:{
         NavBar,requirementList
