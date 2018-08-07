@@ -14,10 +14,11 @@
             <input required type="text" v-model="place" placeholder="Place" class="form-control w-100 input">
             <input required type="text" v-model ="email" placeholder="Email" class="form-control w-100 input">
             <input required type="text" v-model ="username" placeholder="Username" class="form-control w-100 input">
-            <input required type="password" v-model ="password" placeholder="Password" class="form-control w-100 input">
-            <div class="alert" v-show="usernameErrors">
+             <div class="alert" v-show="usernameErrors">
               {{usernameErrors}}
-            </div>
+              </div>
+            <input required type="password" v-model ="password" placeholder="Password" class="form-control w-100 input">
+            
           </div>
           <div class="row algin-items-end">
             <button type="button" @click="submit()" class="btn btn-primary ml-auto next-button">SUBMIT</button>
@@ -35,7 +36,7 @@
 </template>
 <script>
 import NavBar from '../navbar/Master'
-var name,place,email,username,password,usernameErrors
+var name,place,email,username,password
 var data={
   name,place,email,username,password
 }
@@ -45,6 +46,11 @@ export default {
   },
   components:{
     NavBar
+  },
+  computed:{
+    usernameErrors(){
+      return this.$store.state.usernameErrors;
+    }
   },
   methods:{
     submit:function(){
@@ -67,9 +73,9 @@ export default {
             
             this.$router.push('/success')
           }else{
-            // console.log(res.data.message.message)
+            console.log(res.data.message.message)
             
-            self.$store.commit('notValidOrganisation')
+            this.$store.commit('notValidOrganisation')
           }
         }).catch((err)=>{
             throw err
