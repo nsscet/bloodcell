@@ -16,7 +16,7 @@ import createUser from '@/components/createUser/Master'
 import uploadPage from '@/components/uploadPage/Master'
 import landingPage from '@/components/landingPage/Master'
 import requirementsPage from '@/components/requirementPage/Master'
-
+import checkMobile from '@/components/createDonor/checkMobile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -106,6 +106,16 @@ export default new Router({
     {
        path: '/users',
       component: createUser,
+      beforeEnter: (to, from, next) => {
+        if (store.state.isAuthenticated&&(store.state.role == 'sadmin')) {
+          next()
+        } else {
+          redirect: '/login'
+        }
+      }
+    },{
+      path:'/checkMobile',
+      component:checkMobile,
       beforeEnter: (to, from, next) => {
         if (store.state.isAuthenticated&&(store.state.role == 'sadmin')) {
           next()

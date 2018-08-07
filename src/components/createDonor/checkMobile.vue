@@ -1,9 +1,9 @@
 <template lang="html">
-  <div class="">
+  <div class="box container">
     <Navbar></Navbar>
     <div class="row align-items-start">
       <div class="col">
-        <h3>Register a new donation</h3>
+        <h3>Register a new donor</h3>
       </div>
     </div>
     <div class="row align-items-center">
@@ -11,7 +11,10 @@
         <div class="container form-group">
           <div class="row algin-items-start">
             <input required type="text" v-model="mobile" placeholder="Mobile Number" class="form-control w-100 input">
-          </div>
+            <div class="alert" v-show="mobileNoErr">
+                {{mobileNoErr}}
+            </div>
+          </div>   
           <div class="row algin-items-end">
             <button type="button" @click="submit(mobile)" class="btn btn-primary ml-auto next-button">NEXT</button>
           </div>
@@ -35,9 +38,10 @@ var data = {
   mobile
 };
 export default {
-  data: function() {
+  data() {
     return data;
   },
+  
   methods: {
     submit: function(mobileNumber) {
       var self = this;
@@ -53,9 +57,9 @@ export default {
         })
         .then(function(res) {
           if (res.data.Donors[0]) {
-            self.$store.commit("updateDonor", res.data.Donors[0]);
-            self.$store.commit("isAValidMobileNumber");
-            self.$router.push("/registerdonation");
+            self.$store.commit('setMobileError')
+
+
           } else {
             self.$store.commit("updateMobile", postData.mobileNumber);
             self.$router.push("/registerdonor");
@@ -69,7 +73,10 @@ export default {
   computed: {
     mobileNumber() {
       return this.$store.state.mobileNumber;
-    }
+    },
+     mobileNoErr(){
+          return this.$store.state.mobileNoErr;
+      }
   },
   created() {
     this.mobile = "";
@@ -81,6 +88,3 @@ export default {
 </script>
 
 <style src="../../assets/css/forms.css"></style>
-
-<style lang="css">
-</style>

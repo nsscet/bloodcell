@@ -26,6 +26,9 @@
         <router-link class="nav-link" to="/users"><i class="fa fa-plus"></i> New User</router-link>
       </li>
       <li class="nav-item">
+        <router-link to="/checkMobile" class="nav-link"><i class="fa fa-plus"></i>New Donor</router-link>
+      </li>
+      <li class="nav-item">
         <router-link to="/upload" class="nav-link"><i class="fa fa-plus"></i> Upload</router-link>
       </li>
       <li class="nav-item">

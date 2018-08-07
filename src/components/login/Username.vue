@@ -16,7 +16,7 @@
 </template>
 
 <script>
-var username, isValidUsername, usernameErrors
+var username
 var isValid
 var data = {
   username
