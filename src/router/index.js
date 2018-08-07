@@ -35,22 +35,10 @@ export default new Router({
       //   }
       // }
     },
-    {
-      path: '/dash',
-      component: Dashboard,
-      name: 'dash',
-      beforeEnter: (to, from, next) => {
-        console.log("dash")
-        if (store.state.isAuthenticated) {
-          next()
-        } else {
-          redirect: '/login'
-        }
-      }
-    },
-    {
+        {
       path: '/login',
       component: Login,
+      name: 'foo',
       beforeEnter: (to, from, next) => {
         if (!store.state.isAuthenticated) {
           next()
@@ -60,13 +48,28 @@ export default new Router({
       }
     },
     {
+      path: '/dash',
+      component: Dashboard,
+      name: 'dash',
+      beforeEnter: (to, from, next) => {
+        console.log("dash")
+        if (store.state.isAuthenticated) {
+          next()
+        } else {
+          console.log("else")
+          next('/login')
+        }
+      }
+    },
+
+    {
       path: '/registerdonation',
       component: registerDonation,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated&&(store.state.role =='sadmin' )) {
+        if (store.state.isAuthenticated&&(store.state.role =='sadmin' || store.state.role == 'organisation' )) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -74,10 +77,10 @@ export default new Router({
       path: '/getmobile',
       component: getMobile,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin' || store.state.role == 'organisation')) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -85,10 +88,10 @@ export default new Router({
       path: '/registerdonor',
       component: registerDonor,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin'|| store.state.role == 'organisation')) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -96,10 +99,10 @@ export default new Router({
       path: '/searchdonors',
       component: searchDonors,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin' || store.state.role == 'organisation')) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -107,10 +110,10 @@ export default new Router({
        path: '/users',
       component: createUser,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated&&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated&&(store.state.role == 'sadmin' )) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -118,10 +121,10 @@ export default new Router({
       path: '/postrequirement',
       component: postRequirement,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin'|| store.state.role == 'hospitals')) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },
@@ -129,10 +132,10 @@ export default new Router({
       path:'/upload',
       component: uploadPage,
       beforeEnter: (to, from, next) => {
-        if (store.state.isAuthenticated &&(store.state.role == 'sadmin')) {
+        if (store.state.isAuthenticated &&(store.state.role == 'sadmin' || store.state.role == 'organisation')) {
           next()
         } else {
-          redirect: '/login'
+          next('/login')
         }
       }
     },

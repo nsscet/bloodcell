@@ -27,7 +27,7 @@
 <script>
 import Requirements from './RequirementsList.vue'
 import panel from './panel.vue'
-let count2 = 18, count1 , count3 = 20, count4 = 78;
+let count2 = 0, count1 , count3 = 0, count4 = 0;
 var today = new Date()
 today.setHours(0,0,0,0)
 let data =
