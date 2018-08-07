@@ -13,6 +13,13 @@
             <input required type="text" v-model="name" placeholder="Name" class="form-control w-100 input">
             <input required type="text" v-model="place" placeholder="Place" class="form-control w-100 input">
             <input required type="text" v-model ="email" placeholder="Email" class="form-control w-100 input">
+            <span>Role</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="role">
+              <option class="input" value="sadmin" >sadmin</option>
+              <option class="input" value="organisation">organisation</option>
+              <option class="input" value="hospitals">hospitals</option>
+              <option class="input" value="user" >user</option>
+            </select>
             <input required type="text" v-model ="username" placeholder="Username" class="form-control w-100 input">
              <div class="alert" v-show="usernameErrors">
               {{usernameErrors}}
@@ -60,7 +67,7 @@ export default {
           email:this.email,
           username:this.username,
           password:this.password,
-          role:'organisation'
+          role:this.role
         }
         window.axios({
           method:'post',
