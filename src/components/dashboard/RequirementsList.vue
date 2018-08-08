@@ -23,7 +23,7 @@
       <br>
 
     </div>
-  <div class="modal" id="myModal">
+  <div class="modal"  id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -52,7 +52,6 @@
          <label>Year of Join</label>&nbsp<input type="text" class="form-control w-100 input" v-model="yearOfJoin">
          <label>Mobile Number</label>&nbsp<input type="text" class="form-control w-100 input" v-model="mobileNo">
      
-
          <span>Blood Group</span>
             <select class=" form-control w-100 custom-select" name="" v-model="bloodGroup">
               <option class="input" selected value="0+ve">O +ve</option>
@@ -77,6 +76,9 @@
               <option class="input" value="Industrial">Industrial </option>
               <option class="input" value="MCA">MCA</option>
             </select>  
+        <div class="alert" v-show="mobileError">
+          {{mobileError}}
+        </div>
         </div>
       </div>
 
@@ -94,7 +96,14 @@
 
 <script>
 var requirements = {};
-var name, placeOfStay, email, collegeId, yearOfJoin, bloodGroup, branch,mobileNo;
+var name,
+  placeOfStay,
+  email,
+  collegeId,
+  yearOfJoin,
+  bloodGroup,
+  branch,
+  mobileNo;
 
 export default {
   data: () => {
@@ -110,6 +119,11 @@ export default {
       mobileNo
     };
   },
+  computed: {
+    mobileError() {
+      return this.$store.state.mobileNoErr;
+    }
+  },
   methods: {
     closeRequirement: requirement => {
       window
@@ -123,7 +137,8 @@ export default {
           requirement.isClosed = true;
         });
     },
-    addDonor(){
+    addDonor() {
+     
       var postData = {
         name: this.name,
         place: this.placeOfStay,
@@ -142,10 +157,20 @@ export default {
           data: postData
         })
         .then(res => {
+    
+          if (res.data.err.code == 11000) {
+        
+            var message = "Donor Already Exists!";
+            this.$store.commit("setMobileError", message);
          
+          } else {
+            console.log("In Else")
+      
+          }
         })
         .catch(err => {
-          // console.log("Error"+err);
+          const message = "Some Error Occured";
+          this.$store.commit("setMobileError", message);
         });
     }
   },
@@ -162,5 +187,5 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style src="../../assets/css/forms.css">
 </style>

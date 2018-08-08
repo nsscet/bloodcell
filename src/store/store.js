@@ -30,15 +30,17 @@ export const store = new Vuex.Store({
     mobileNoErr:null
   },
   plugins: [
-    createPersistedState()
+    createPersistedState({
+      paths:['donor','isValidUsername','username','role','isAuthenticated','isValidMobileNumber']
+    })
   ],
   mutations: {
     isAValidUsername (state, username) {
       state.isValidUsername = true
       state.username = username
     },
-    setMobileError(state){
-      state.mobileNoErr = "Donor Already Exists" 
+    setMobileError(state,message){
+      state.mobileNoErr = message
     },
     loadUsernameFromCache (state, username) {
       console.log('loadfromcache')

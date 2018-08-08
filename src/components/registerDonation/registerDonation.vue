@@ -79,7 +79,8 @@ export default {
         donorId: this.donor.donorId,
         hospitalId: this.hospitalId,
         dateOfDonation: this.dateOfDonation,
-        typeOfDonation: this.typeOfDonation
+        typeOfDonation: this.typeOfDonation,
+        voluntary:true
       }
 
 

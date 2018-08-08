@@ -8,7 +8,7 @@
       :rows="rows"
       :search-options="{
         enabled: true,
-        searchFn: mySearchFn,
+  
         placeholder: 'Search this table',
         externalQuery: searchQuery
     }"/>
