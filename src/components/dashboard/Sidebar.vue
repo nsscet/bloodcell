@@ -15,18 +15,18 @@
       </li>
 
       <li class="nav-item" v-if="this.role === 'sadmin' ||this.role === 'organisation'">
-        <router-link class="nav-link" to="/getmobile"><i class="fa fa-plus"></i> New Donation</router-link>
+        <router-link class="nav-link" to="/getmobile"><i class="fa fa-plus"></i> Voluntary Donation</router-link>
       </li>
 
       <li class="nav-item" v-if="this.role === 'sadmin' || this.role === 'hospitals' ">
-        <router-link class="nav-link" to="/postrequirement"><i class="fa fa-plus"></i> New Requirement</router-link>
+        <router-link class="nav-link" to="/postrequirement"><i class="fa fa-plus"></i> Requirement</router-link>
       </li>
 
       <li class="nav-item" v-if="this.role === 'sadmin' || this.role  ==='organisation'">
-        <router-link class="nav-link" to="/users"><i class="fa fa-plus"></i> New User</router-link>
+        <router-link class="nav-link" to="/users"><i class="fa fa-plus"></i> User</router-link>
       </li>
       <li class="nav-item" v-if="this.role === 'sadmin' || this.role  ==='organisation'">
-        <router-link to="/checkMobile" class="nav-link"><i class="fa fa-plus"></i>New Donor</router-link>
+        <router-link to="/checkMobile" class="nav-link"><i class="fa fa-plus"></i> Donor</router-link>
       </li>
       <li class="nav-item" v-if="this.role === 'sadmin' ||  this.role === 'organisation' ">
         <router-link to="/upload" class="nav-link"><i class="fa fa-plus"></i> Upload</router-link>

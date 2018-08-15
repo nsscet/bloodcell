@@ -18,7 +18,7 @@
             <input required type="text" v-model ="yearOfJoin" placeholder="Year of Join" class="form-control w-100 input">
             <span class="small">Blood Group</span>
             <select class=" form-control w-100 custom-select" name="" v-model="bloodGroup">
-              <option class="input" selected value="0+ve">O +ve</option>
+              <option class="input" selected value="O+ve">O +ve</option>
               <option class="input" value="O-ve">O-ve</option>
               <option class="input" value="A+ve">A+ve</option>
               <option class="input" value="A-ve">A-ve</option>

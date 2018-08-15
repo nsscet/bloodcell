@@ -27,7 +27,7 @@
 <script>
 import Requirements from './RequirementsList.vue'
 import panel from './panel.vue'
-let count2 = 0, count1 , count3 = 0, count4 = 0;
+let count2 = 0, count1=0 , count3 = 0, count4 = 0;
 var today = new Date()
 today.setHours(0,0,0,0)
 let data =
@@ -82,7 +82,7 @@ export default {
       process.env.API_URL + '/admin/requirements',
       {
         params: {
-          isClosed: false
+          isClosed: 0
         },
         withCredentials: true
       })

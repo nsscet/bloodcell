@@ -3,7 +3,7 @@
     <h2>Requirements</h2>
     <hr>
     <div class="" v-for="requirement in requirements">
-      <div class="card" v-if="requirement.isClosed == false">
+      <div class="card" v-if="requirement.isClosed === 0">
         <div class="card-body">
           <strong>{{requirement.quantity}} units of {{requirement.bloodGroup}} blood required</strong>
           <br>
@@ -15,8 +15,10 @@
           <br>
           Type: {{requirement.typeOfRequirement}}
           <hr>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          <!-- <div  v-if="this.role === 'sadmin' || this.role === 'organisation'"> -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="initReq(requirement)">
   <i class='fa fa-plus'/> Add Donor</button>
+          <!-- </div> -->
           <button type="button" name="button" class="btn btn-success" @click="closeRequirement(requirement)"><i class="fa fa-check-circle"></i> Close</button>
         </div>
       </div>
@@ -96,6 +98,7 @@
 
 <script>
 var requirements = {};
+var tempRequirement = {};
 var name,
   placeOfStay,
   email,
@@ -116,29 +119,44 @@ export default {
       yearOfJoin,
       bloodGroup,
       branch,
-      mobileNo
+      mobileNo,
+      tempRequirement
     };
   },
   computed: {
     mobileError() {
       return this.$store.state.mobileNoErr;
+    },
+    role() {
+      return this.$store.state.role;
     }
   },
   methods: {
+    initReq(requirement) {
+      this.tempRequirement = requirement;
+    },
     closeRequirement: requirement => {
+      var postData = {
+        patientId: requirement.patientId,
+        hospitalId: requirement.hospitalId,
+        typeOfRequirement: requirement.typeOfRequirement,
+        quantity: requirement.quantity,
+        bloodGroup: requirement.bloodGroup,
+        isClosed: -1,
+        timeOfPosting: requirement.timeOfPosting
+      };
       window
         .axios({
           method: "put",
           url: process.env.API_URL + "/admin/requirements",
           withCredentials: true,
-          data: requirement
+          data: postData
         })
         .then(() => {
-          requirement.isClosed = true;
+          requirement.isClosed = -1;
         });
     },
     addDonor() {
-     
       var postData = {
         name: this.name,
         place: this.placeOfStay,
@@ -157,15 +175,60 @@ export default {
           data: postData
         })
         .then(res => {
-    
           if (res.data.err.code == 11000) {
-        
             var message = "Donor Already Exists!";
             this.$store.commit("setMobileError", message);
-         
           } else {
-            console.log("In Else")
-      
+            var requirement = this.tempRequirement;
+            var qty = requirement.quantity;
+            var isClosed = 0;
+            if (qty > 0)
+              qty = requirement.quantity - 1;
+            if (qty == 0) {
+              isClosed = 1;
+            }
+            var postData = {
+              patientId: requirement.patientId,
+              hospitalId: requirement.hospitalId,
+              typeOfRequirement: requirement.typeOfRequirement,
+              quantity: qty,
+              bloodGroup: requirement.bloodGroup,
+              isClosed: isClosed,
+              timeOfPosting: requirement.timeOfPosting
+            };
+            window
+              .axios({
+                method: "put",
+                url: process.env.API_URL + "/admin/requirements",
+                withCredentials: true,
+                data: postData
+              })
+              .then(res => {
+                var curDate = new Date()
+                var donationData = {
+                  donorId: this.collegeId,
+                  hospitalId:requirement.hospitalId,
+                  dataOfDonation:curDate,
+                  typeOfDonation:requirement.typeOfRequirement,
+                  voluntary:false
+                }
+                window.axios({
+                  method:"post",
+                  url:process.env.API_URL + "/admin/donation",
+                  withCredentials:true,
+                  data:donationData
+                }).then(res=>{
+                  console.log(res)
+                }).catch(err=>{
+                  console.log(err)
+                })
+                if (qty == 0) 
+                  requirement.isClosed = 1;
+                  requirement.quantity = qty;
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }
         })
         .catch(err => {
