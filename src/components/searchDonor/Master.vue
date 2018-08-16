@@ -33,7 +33,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <textarea class="form-control" v-model="remark">Helloworld</textarea>
+        <textarea class="form-control" v-model="remark" placeholder="Fill in the remarks"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" @click="updateRemark" data-dismiss="modal">Save</button>

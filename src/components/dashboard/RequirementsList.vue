@@ -18,6 +18,9 @@
           Contact: {{requirement.contactNo}}
           <br>
           Remarks: {{requirement.remarks}}
+          <div v-if="this.role === 'hospital'"> 
+          <button class="btn btn-default" data-toggle="modal"  data-target="#remarks" style="border-radius:50%;float:right" @click="initReq(requirement)"><i class="fa fa-pencil"></i></button>
+          </div>
           <hr>
           <!-- <div  v-if="this.role === 'sadmin' || this.role === 'organisation'"> -->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="initReq(requirement)">
@@ -29,6 +32,7 @@
       <br>
 
     </div>
+    
   <div class="modal"  id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -96,6 +100,29 @@
 
     </div>
   </div>
+  
+</div>
+<div id="remarks" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Header</h4>
+        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- <input type="textarea" class="form-control w-100 input" v-model="remark"> -->
+        <textarea class="form-control w-100 input" v-model="remark"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" @click="updateRemark">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
   </div>
 </template>
@@ -110,7 +137,8 @@ var name,
   yearOfJoin,
   bloodGroup,
   branch,
-  mobileNo;
+  mobileNo,
+  remark;
 
 export default {
   data: () => {
@@ -124,7 +152,8 @@ export default {
       bloodGroup,
       branch,
       mobileNo,
-      tempRequirement
+      tempRequirement,
+      remark
     };
   },
   computed: {
@@ -147,7 +176,9 @@ export default {
         quantity: requirement.quantity,
         bloodGroup: requirement.bloodGroup,
         isClosed: -1,
-        timeOfPosting: requirement.timeOfPosting
+        timeOfPosting: requirement.timeOfPosting,
+        contactNo: requirement.contactNo,
+        remarks: requirement.remarks
       };
       window
         .axios({
@@ -158,6 +189,23 @@ export default {
         })
         .then(() => {
           requirement.isClosed = -1;
+        });
+    },
+    updateRemark() {
+      var requirement = this.tempRequirement;
+      requirement.remarks = this.remark;
+      window
+        .axios({
+          method: "put",
+          url: process.env.API_URL + "/admin/requirements",
+          withCredentials: true,
+          data: requirement
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
         });
     },
     addDonor() {
@@ -186,8 +234,7 @@ export default {
             var requirement = this.tempRequirement;
             var qty = requirement.quantity;
             var isClosed = 0;
-            if (qty > 0)
-              qty = requirement.quantity - 1;
+            if (qty > 0) qty = requirement.quantity - 1;
             if (qty == 0) {
               isClosed = 1;
             }
@@ -198,7 +245,9 @@ export default {
               quantity: qty,
               bloodGroup: requirement.bloodGroup,
               isClosed: isClosed,
-              timeOfPosting: requirement.timeOfPosting
+              timeOfPosting: requirement.timeOfPosting,
+              remarks: requirement.remarks,
+              contactNo: requirement.contactNo
             };
             window
               .axios({
@@ -208,27 +257,29 @@ export default {
                 data: postData
               })
               .then(res => {
-                var curDate = new Date()
+                var curDate = new Date();
                 var donationData = {
                   donorId: this.collegeId,
-                  hospitalId:requirement.hospitalId,
-                  dataOfDonation:curDate,
-                  typeOfDonation:requirement.typeOfRequirement,
-                  voluntary:false
-                }
-                window.axios({
-                  method:"post",
-                  url:process.env.API_URL + "/admin/donation",
-                  withCredentials:true,
-                  data:donationData
-                }).then(res=>{
-                  console.log(res)
-                }).catch(err=>{
-                  console.log(err)
-                })
-                if (qty == 0) 
-                  requirement.isClosed = 1;
-                  requirement.quantity = qty;
+                  hospitalId: requirement.hospitalId,
+                  dataOfDonation: curDate,
+                  typeOfDonation: requirement.typeOfRequirement,
+                  voluntary: false
+                };
+                window
+                  .axios({
+                    method: "post",
+                    url: process.env.API_URL + "/admin/donation",
+                    withCredentials: true,
+                    data: donationData
+                  })
+                  .then(res => {
+                    console.log(res);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+                if (qty == 0) requirement.isClosed = 1;
+                requirement.quantity = qty;
               })
               .catch(err => {
                 console.log(err);
