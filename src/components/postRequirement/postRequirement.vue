@@ -12,9 +12,11 @@
           <div class="row algin-items-start">
             <input required type="text" v-model="patientId" placeholder="Patient ID" class="form-control w-100 input">
             <input required type="text" v-model ="quantity" placeholder="Quantity" class="form-control w-100 input">
+            <input required type="text" v-model ="contactNo" placeholder="Contact No" class="form-control w-100 input">
+            <input required type="text" v-model ="remarks" placeholder="Remarks" class="form-control w-100 input">
             <span class="small">Blood Group</span>
             <select class=" form-control w-100 custom-select" name="O+ve" v-model="bloodGroup">
-              <option class="input" selected value="0+ve">O+ve</option>
+              <option class="input" selected value="O+ve">O+ve</option>
               <option class="input" value="O-ve">O-ve</option>
               <option class="input" value="A+ve">A+ve</option>
               <option class="input" value="A-ve">A-ve</option>
@@ -51,13 +53,15 @@
 </template>
 
 <script>
-var patientId, bloodGroup, quantity, hospitalId, typeOfRequirement
+var patientId, bloodGroup, quantity, hospitalId, typeOfRequirement,contactNo,remarks
 var data = {
   patientId,
   bloodGroup,
   quantity,
   hospitalId,
-  typeOfRequirement
+  typeOfRequirement,
+  contactNo,
+  remarks
 }
 export default {
   data: function(){
@@ -74,7 +78,9 @@ export default {
         hospitalId: this.hospitalId,
         typeOfRequirement: this.typeOfRequirement,
         quantity: this.quantity,
-        bloodGroup: this.bloodGroup
+        bloodGroup: this.bloodGroup,
+        contactNo:this.contactNo,
+        remarks:this.remarks
       }
       window.axios({
         url: process.env.API_URL + '/admin/requirements',

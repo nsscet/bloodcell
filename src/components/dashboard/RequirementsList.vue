@@ -14,6 +14,10 @@
           Date of posting: {{requirement.timeOfPosting}}
           <br>
           Type: {{requirement.typeOfRequirement}}
+          <br>
+          Contact: {{requirement.contactNo}}
+          <br>
+          Remarks: {{requirement.remarks}}
           <hr>
           <!-- <div  v-if="this.role === 'sadmin' || this.role === 'organisation'"> -->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" @click="initReq(requirement)">
