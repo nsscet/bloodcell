@@ -85,7 +85,7 @@ export default {
             this.$store.commit('notValidOrganisation')
           }
         }).catch((err)=>{
-            throw err
+            console.log(err)
         })
     }
   }

@@ -31,9 +31,13 @@
       <li class="nav-item" v-if="this.role === 'sadmin' ||  this.role === 'organisation' ">
         <router-link to="/upload" class="nav-link"><i class="fa fa-plus"></i> Upload</router-link>
       </li>
+      <li class="nav-item" v-if="this.role === 'sadmin' ||  this.role === 'organisation' ">
+        <router-link to="/createHospital" class="nav-link"><i class="fa fa-plus"></i> Hospital</router-link>
+      </li>
       <li class="nav-item" v-if="this.role === 'sadmin' || this.role === 'organisation' ">
         <router-link to="/searchdonors" class="nav-link"><i class="fa fa-search"></i> Search Donors</router-link>
       </li>
+    
     </ul>
 
   </nav>

@@ -27,9 +27,10 @@
 
             </select>
             <span class="small">Hospital</span>
-            <select class=" form-control w-100 custom-select" name="" v-model="hospitalId">
-              <option class="input" selected value="MCH">MCH</option>
-              <option class="input" value="RCC">RCC</option>
+            <select class=" form-control w-100 custom-select"  name="" v-model="hospitalId">
+              <option v-for="hospital in hospitals" :disabled="hospital.success === false " v-bind:value="hospital.name">
+                {{ hospital.name }}
+              </option>
             </select>
             <span class="small">Type of Requirement</span>
             <select class=" form-control w-100 custom-select" name="" v-model="typeOfRequirement">
@@ -53,7 +54,14 @@
 </template>
 
 <script>
-var patientId, bloodGroup, quantity, hospitalId, typeOfRequirement,contactNo,remarks
+var patientId,
+  bloodGroup,
+  quantity,
+  hospitalId,
+  typeOfRequirement,
+  contactNo,
+  remarks,
+  hospitals;
 var data = {
   patientId,
   bloodGroup,
@@ -61,43 +69,58 @@ var data = {
   hospitalId,
   typeOfRequirement,
   contactNo,
-  remarks
-}
+  remarks,
+  hospitals
+};
 export default {
-  data: function(){
-    return data
+  data: function() {
+    return data;
   },
-  computed: {
-
+  computed: {},
+  mounted() {
+    window
+      .axios({
+        method: "get",
+        url: process.env.API_URL + "/admin/hospital",
+        withCredentials: true
+      })
+      .then(res => {
+        if (res.data.success) {
+          this.hospitals = res.data.hospitals;
+        } else {
+          this.hospitals = [{ name: res.data.message, success: false }];
+        }
+      });
   },
   methods: {
-    submit: function(){
-      var self = this
+    submit: function() {
+      var self = this;
       var postData = {
         patientId: this.patientId,
         hospitalId: this.hospitalId,
         typeOfRequirement: this.typeOfRequirement,
         quantity: this.quantity,
         bloodGroup: this.bloodGroup,
-        contactNo:this.contactNo,
-        remarks:this.remarks
-      }
-      window.axios({
-        url: process.env.API_URL + '/admin/requirements',
-        method: 'post',
-        data: postData,
-        withCredentials: true
-      })
-      .then(function(res){
-          self.$router.push('/success')
-      })
-      .catch(function(err){
-        throw err
-        console.log(err);
-      })
+        contactNo: this.contactNo,
+        remarks: this.remarks
+      };
+      window
+        .axios({
+          url: process.env.API_URL + "/admin/requirements",
+          method: "post",
+          data: postData,
+          withCredentials: true
+        })
+        .then(function(res) {
+          self.$router.push("/success");
+        })
+        .catch(function(err) {
+          throw err;
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 
 <style src="../../assets/css/forms.css"></style>
