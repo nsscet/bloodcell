@@ -33,20 +33,21 @@
 
     </div>
     
-  <div class="modal"  id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal "  id="myModal">
+  <div class=" modal-dialog modal-lg" >
+    <div class="modal-content ">
 
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Add Donor</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-
+      
       <!-- Modal body -->
-      <div class="modal-body">
-        <div class="col-md-10">
-            <label >Name</label>&nbsp<input type="text" class="form-control w-100 input" v-model="name">
+      <div class="modal-body ">
+        <div class="col-md-12">
+          <SelectDonor></SelectDonor>
+  <!--           <label >Name</label>&nbsp<input type="text" class="form-control w-100 input" v-model="name">
     
      
      
@@ -88,7 +89,7 @@
             </select>  
         <div class="alert" v-show="mobileError">
           {{mobileError}}
-        </div>
+        </div> -->
         </div>
       </div>
 
@@ -102,10 +103,10 @@
   </div>
   
 </div>
-<div id="remarks" class="modal fade" role="dialog">
+<!-- div id="remarks" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal Header</h4>
@@ -113,7 +114,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <!-- <input type="textarea" class="form-control w-100 input" v-model="remark"> -->
+        <input type="textarea" class="form-control w-100 input" v-model="remark">
         <textarea class="form-control w-100 input" v-model="remark"></textarea>
       </div>
       <div class="modal-footer">
@@ -123,11 +124,12 @@
     </div>
 
   </div>
-</div>
+</div> -->
   </div>
 </template>
 
 <script>
+  import SelectDonor from  '../selectDonor/Master.vue'
 var requirements = {};
 var tempRequirement = {};
 var name,
@@ -155,6 +157,9 @@ export default {
       tempRequirement,
       remark
     };
+  },
+  components:{
+    SelectDonor
   },
   computed: {
     mobileError() {
@@ -306,4 +311,21 @@ export default {
 </script>
 
 <style src="../../assets/css/forms.css">
+<style>
+  
+ .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content {
+  height: auto;
+  width: auto;
+  min-width: 100%
+  min-height: 100%;
+  border-radius: 0;
+}
+</style>
 </style>

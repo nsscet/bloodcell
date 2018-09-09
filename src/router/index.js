@@ -11,6 +11,7 @@ import registerDonor from '@/components/registerDonor/Master'
 import Success from '@/components/success'
 import Dashboard from '@/components/dashboard/Master'
 import searchDonors from '@/components/searchDonor/Master'
+import selectDonors from '@/components/selectDonor/Master'
 import postRequirement from '@/components/postRequirement/Master'
 import createUser from '@/components/createUser/Master'
 import uploadPage from '@/components/uploadPage/Master'
@@ -98,6 +99,17 @@ export default new Router({
         {
             path: '/searchdonors',
             component: searchDonors,
+            beforeEnter: (to, from, next) => {
+                if (store.state.isAuthenticated && (store.state.role == 'sadmin' || store.state.role == 'organisation')) {
+                    next()
+                } else {
+                    next('/login')
+                }
+            }
+        },
+        {
+            path: '/selectdonors',
+            component: selectDonors,
             beforeEnter: (to, from, next) => {
                 if (store.state.isAuthenticated && (store.state.role == 'sadmin' || store.state.role == 'organisation')) {
                     next()
