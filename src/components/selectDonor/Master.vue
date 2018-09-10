@@ -20,7 +20,7 @@
       {{props.formattedRow[props.column.field]}}
     </span>
     <span v-if="props.column.field == 'link'">
-      <button class="btn btn-default" data-toggle="modal" @click="editRemark(props.formattedRow)" data-target="#myModal" style="border-radius:50%;float:right"><i class="fa fa-chain"></i></button>
+      <button class="btn btn-default" data-toggle="modal" @click="linkDonor(props.formattedRow)" style="border-radius:50%;float:right"><i class="fa fa-chain"></i></button>
     </span>
     <span v-else>
       
@@ -65,7 +65,7 @@ export default {
   components: {
     VueGoodTable,
     NavBar
-  },
+  },props:['requirement'],
   data() {
     return {
       columns: [
@@ -123,7 +123,26 @@ export default {
   methods: {
     editRemark(donor) {
       this.temp = donor
-      console.log(this.rows)
+      console.log(this.requirement)
+    },linkDonor(donor){
+      var query = {}
+      query.hospitalId = this.requirement.hospitalId
+      query.bloodGroup = this.requirement.bloodGroup
+      query.typeOfRequirement = this.requirement.typeOfRequirement
+      query.patientId = this.requirement.patientId
+      query.contactNo = this.requirement.contactNo
+      query.donor = donor
+      window.axios({
+        url:process.env.API_URL + '/admin/linkrequirements',
+        method:'put',
+        data:query,
+        withCredentials:true
+      }).then((res)=>{
+        console.log(res)
+
+      }).catch((err)=>{
+        console.log(err)
+      })
     },
     updateRemark(){
       var query = {}
