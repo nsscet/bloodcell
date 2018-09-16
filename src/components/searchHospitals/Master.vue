@@ -55,7 +55,6 @@ export default {
         withCredentials: true
       })
       .then(res => {
-        console.log(res);
         this.rows = res.data.hospitals;
       })
       .catch(err => {

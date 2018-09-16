@@ -25,9 +25,10 @@
             <span class="small">Date of donation</span>
             <input type="date" value="getDate" v-model="dateOfDonation" class="input w-100 form-control">
             <span class="small">Hospital</span>
-            <select class=" form-control w-100 custom-select" name="" v-model="hospitalId">
-              <option class="input" selected value="MCH">MCH</option>
-              <option class="input" value="RCC">RCC</option>
+            <select class=" form-control w-100 custom-select"  name="" v-model="hospitalId">
+              <option v-for="hospital in hospitals" :disabled="hospital.success === false " v-bind:value="hospital.name">
+                {{ hospital.name }}
+              </option>
             </select>
             <span class="small">Type of donation</span>
             <select class=" form-control w-100 custom-select" name="" v-model="typeOfDonation">
@@ -51,8 +52,17 @@
 </template>
 
 <script>
-  var hospitalId, name, email, place, donorId, mobileNumber, bloodGroup, dateOfDonation, typeOfDonation
-  var data = {
+var hospitalId,
+  name,
+  email,
+  place,
+  donorId,
+  mobileNumber,
+  bloodGroup,
+  dateOfDonation,
+  typeOfDonation,
+  hospitals;
+var data = {
   hospitalId,
   name,
   email,
@@ -61,77 +71,84 @@
   mobileNumber,
   bloodGroup,
   dateOfDonation,
-  typeOfDonation
-}
+  typeOfDonation,
+  hospitals
+};
 export default {
-  data: function(){
-    return data
+  data: function() {
+    return data;
   },
   computed: {
-    donor(){
-      return this.$store.state.donor
+    donor() {
+      return this.$store.state.donor;
     }
   },
   methods: {
-    submit: function(){
-      var self = this
+    submit: function() {
+      var self = this;
       var postData = {
         donorId: this.donor.donorId,
         hospitalId: this.hospitalId,
         dateOfDonation: this.dateOfDonation,
         typeOfDonation: this.typeOfDonation,
-        voluntary:true
-      }
+        voluntary: true
+      };
 
-
-      window.axios({
-        url: process.env.API_URL + '/admin/donation',
-        method:'post',
-        data: postData,
-        withCredentials: true
-      })
-      .then(function(res){
-        self.$store.commit('clearDonorDetails')
-        self.$router.push('/success')
-
-      })
-      .catch(function(err){
-        throw err;
-      })
+      window
+        .axios({
+          url: process.env.API_URL + "/admin/donation",
+          method: "post",
+          data: postData,
+          withCredentials: true
+        })
+        .then(function(res) {
+          self.$store.commit("clearDonorDetails");
+          self.$router.push("/success");
+        })
+        .catch(function(err) {
+          throw err;
+        });
     }
   },
-  mounted(){
-    var today = new Date()
-    var dd = today.getDate()
-    var mm = today.getMonth()+1
-    var yyyy = today.getFullYear()
-    if(dd < 10)
-      dd = '0'+dd
-    if(mm < 10)
-      mm = '0'+mm
-    today = yyyy + '-' + mm + '-' + dd;
-    this.dateOfDonation = today
+  mounted() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    today = yyyy + "-" + mm + "-" + dd;
+    this.dateOfDonation = today;
 
-    this.name = this.donor.name
-    this.email = this.donor.email
-    this.place = this.donor.place
-    this.bloodGroup = this.donor.bloodGroup
-    this.mobileNumber = this.donor.mobileNumber
-    this.donorId = this.donor.donorId
-
+    this.name = this.donor.name;
+    this.email = this.donor.email;
+    this.place = this.donor.place;
+    this.bloodGroup = this.donor.bloodGroup;
+    this.mobileNumber = this.donor.mobileNumber;
+    this.donorId = this.donor.donorId;
+    axios({
+      method: "get",
+      url: process.env.API_URL + "/admin/hospital",
+      withCredentials: true
+    }).then(res => {
+      if (res.data.success) {
+        this.hospitals = res.data.hospitals;
+      } else {
+        this.data.hospitals = [{ name: res.data.message, success: false }];
+      }
+    });
   }
-}
+};
 </script>
 
 <style src="../../assets/css/forms.css"></style>
 
 <style lang="css">
-.input{
+.input {
   margin-top: 0px;
   padding-top: 10px;
-
 }
-.small{
+.small {
   margin-top: 10px;
 }
 </style>
