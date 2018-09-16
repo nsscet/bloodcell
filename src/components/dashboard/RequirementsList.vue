@@ -3,7 +3,7 @@
     <h2>Requirements</h2>
     <hr>
     <div class="" v-for="requirement in requirements">
-      <div class="card" v-if="requirement.isClosed === 0">
+      <div class="card" v-if="requirement.isClosed == 0">
         <div class="card-body">
           <strong>{{requirement.quantity}} units of {{requirement.bloodGroup}} blood required</strong>
           <br>
@@ -63,8 +63,8 @@
     </div>
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" >Submit</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <!-- <button type="button" class="btn btn-primary" >Submit</button> -->
+        <button type="button" class="btn btn-danger" @click="loadData" data-dismiss="modal">Submit</button>
       </div>
 
     </div>
@@ -119,6 +119,16 @@ export default {
   methods: {
     initReq(requirement) {
       this.tempRequirement = requirement;
+    },
+    loadData(){
+      axios
+      .get("http://localhost:3000/public/getrequirements")
+      .then(res => {
+        this.requirements = res.data.requirements;
+      })
+      .catch(err => {
+        throw err;
+      });
     },
     closeRequirement: requirement => {
       var postData = {
@@ -177,6 +187,7 @@ export default {
         }).catch((err)=>{
           console.log(err)
         })
+        this.loadData();
     },
     addDonor() {
       var postData = {
@@ -263,14 +274,15 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get("http://localhost:3000/public/getrequirements")
-      .then(res => {
-        this.requirements = res.data.requirements;
-      })
-      .catch(err => {
-        throw err;
-      });
+    // axios
+    //   .get("http://localhost:3000/public/getrequirements")
+    //   .then(res => {
+    //     this.requirements = res.data.requirements;
+    //   })
+    //   .catch(err => {
+    //     throw err;
+    //   });
+    this.loadData();
   }
 };
 </script>
