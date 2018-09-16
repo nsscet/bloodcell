@@ -21,6 +21,7 @@ import checkMobile from '@/components/createDonor/checkMobile.vue'
 import createHospital from '@/components/Hospital/Master.vue'
 import searchHospitals from '@/components/searchHospitals/Master.vue'
 import donationHistory from '@/components/donationHistory/Master.vue'
+import Failure from '@/components/failure/Master.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -200,6 +201,9 @@ export default new Router({
         }, {
             path: '/requirementsPage',
             component: requirementsPage
+        }, {
+            path: '/failure',
+            component: Failure
         }
     ]
 })

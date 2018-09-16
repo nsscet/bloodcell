@@ -112,7 +112,10 @@ export default {
           withCredentials: true
         })
         .then(function(res) {
-          self.$router.push("/success");
+          if(res.data.success)
+            self.$router.push("/success");
+          else
+            self.$router.push("/failure")  
         })
         .catch(function(err) {
           throw err;
