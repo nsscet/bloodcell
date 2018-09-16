@@ -8,7 +8,22 @@
       :rows="rows"
       :search-options="{
         enabled: true,
-        placeholder: 'Search this table'
+        placeholder: 'Search...'
+      }"
+      :pagination-options="{
+        enabled: true,
+        // mode: 'records',
+        perPage: 20,
+        // position: 'top',
+        // perPageDropdown: [3, 7, 9],
+        // dropdownAllowAll: false,
+        // setCurrentPage: 2,
+        // nextLabel: 'next',
+        // prevLabel: 'prev',
+        // rowsPerPageLabel: 'Rows per page',
+        // ofLabel: 'of',
+        // pageLabel: 'page', // for 'pages' mode
+        // allLabel: 'All',
       }"
      >
      <template slot="table-row" slot-scope="props">
