@@ -8,6 +8,10 @@
             enabled: true,
             placeholder: 'Search this table'
         }"
+        :pagination-options="{
+            enabled:true,
+            perPage:20
+        }"
        />
     </div>
 </template>
