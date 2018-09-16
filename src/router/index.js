@@ -19,6 +19,7 @@ import landingPage from '@/components/landingPage/Master'
 import requirementsPage from '@/components/requirementPage/Master'
 import checkMobile from '@/components/createDonor/checkMobile.vue'
 import createHospital from '@/components/Hospital/Master.vue'
+import searchHospitals from '@/components/searchHospitals/Master.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -163,6 +164,16 @@ export default new Router({
         }, {
             path: '/createHospital',
             component: createHospital,
+            beforeEnter: (to, from, next) => {
+                if (store.state.isAuthenticated && (store.state.role == 'sadmin' || store.state.role == 'organisation')) {
+                    next()
+                } else {
+                    next('/login')
+                }
+            }
+        }, {
+            path: '/searchHospitals',
+            component: searchHospitals,
             beforeEnter: (to, from, next) => {
                 if (store.state.isAuthenticated && (store.state.role == 'sadmin' || store.state.role == 'organisation')) {
                     next()
