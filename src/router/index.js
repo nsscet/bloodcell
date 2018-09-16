@@ -19,11 +19,8 @@ import landingPage from '@/components/landingPage/Master'
 import requirementsPage from '@/components/requirementPage/Master'
 import checkMobile from '@/components/createDonor/checkMobile.vue'
 import createHospital from '@/components/Hospital/Master.vue'
-<<<<<<< HEAD
 import searchHospitals from '@/components/searchHospitals/Master.vue'
-=======
 import donationHistory from '@/components/donationHistory/Master.vue'
->>>>>>> 5805f085eca4810665667523bb20538e9824729c
 Vue.use(Router)
 
 export default new Router({
