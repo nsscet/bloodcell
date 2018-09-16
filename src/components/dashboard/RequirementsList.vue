@@ -131,13 +131,19 @@ export default {
       });
     },
     closeRequirement: requirement => {
+      var qty = requirement.quantity - requirement.children.length
+      var closed = 0
+      if(qty === 0)
+        closed = 1
+      else if(qty>0)
+        closed = -1  
       var postData = {
         patientId: requirement.patientId,
         hospitalId: requirement.hospitalId,
         typeOfRequirement: requirement.typeOfRequirement,
         quantity: requirement.quantity,
         bloodGroup: requirement.bloodGroup,
-        isClosed: -1,
+        isClosed: closed,
         timeOfPosting: requirement.timeOfPosting,
         contactNo: requirement.contactNo,
         remarks: requirement.remarks
@@ -211,61 +217,63 @@ export default {
           if (res.data.err.code == 11000) {
             var message = "Donor Already Exists!";
             this.$store.commit("setMobileError", message);
-          } else {
-            var requirement = this.tempRequirement;
-            var qty = requirement.quantity;
-            var isClosed = 0;
-            if (qty > 0) qty = requirement.quantity - 1;
-            if (qty == 0) {
-              isClosed = 1;
             }
-            var postData = {
-              patientId: requirement.patientId,
-              hospitalId: requirement.hospitalId,
-              typeOfRequirement: requirement.typeOfRequirement,
-              quantity: qty,
-              bloodGroup: requirement.bloodGroup,
-              isClosed: isClosed,
-              timeOfPosting: requirement.timeOfPosting,
-              remarks: requirement.remarks,
-              contactNo: requirement.contactNo
-            };
-            window
-              .axios({
-                method: "put",
-                url: process.env.API_URL + "/admin/requirements",
-                withCredentials: true,
-                data: postData
-              })
-              .then(res => {
-                var curDate = new Date();
-                var donationData = {
-                  donorId: this.collegeId,
-                  hospitalId: requirement.hospitalId,
-                  dataOfDonation: curDate,
-                  typeOfDonation: requirement.typeOfRequirement,
-                  voluntary: false
-                };
-                window
-                  .axios({
-                    method: "post",
-                    url: process.env.API_URL + "/admin/donation",
-                    withCredentials: true,
-                    data: donationData
-                  })
-                  .then(res => {
-                    console.log(res);
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  });
-                if (qty == 0) requirement.isClosed = 1;
-                requirement.quantity = qty;
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          }
+         
+          // } else {
+          //   var requirement = this.tempRequirement;
+          //   var qty = requirement.quantity;
+          //   var isClosed = 0;
+          //   if (qty > 0) qty = requirement.quantity - 1;
+          //   if (qty == 0) {
+          //     isClosed = 1;
+          //   }
+          //   var postData = {
+          //     patientId: requirement.patientId,
+          //     hospitalId: requirement.hospitalId,
+          //     typeOfRequirement: requirement.typeOfRequirement,
+          //     quantity: qty,
+          //     bloodGroup: requirement.bloodGroup,
+          //     isClosed: isClosed,
+          //     timeOfPosting: requirement.timeOfPosting,
+          //     remarks: requirement.remarks,
+          //     contactNo: requirement.contactNo
+          //   };
+          //   window
+          //     .axios({
+          //       method: "put",
+          //       url: process.env.API_URL + "/admin/requirements",
+          //       withCredentials: true,
+          //       data: postData
+          //     })
+          //     .then(res => {
+          //       var curDate = new Date();
+          //       var donationData = {
+          //         donorId: this.collegeId,
+          //         hospitalId: requirement.hospitalId,
+          //         dataOfDonation: curDate,
+          //         typeOfDonation: requirement.typeOfRequirement,
+          //         voluntary: false
+          //       };
+          //       window
+          //         .axios({
+          //           method: "post",
+          //           url: process.env.API_URL + "/admin/donation",
+          //           withCredentials: true,
+          //           data: donationData
+          //         })
+          //         .then(res => {
+          //           console.log(res);
+          //         })
+          //         .catch(err => {
+          //           console.log(err);
+          //         });
+          //       if (qty == 0) requirement.isClosed = 1;
+          //       requirement.quantity = qty;
+          //     })
+          //     .catch(err => {
+          //       console.log(err);
+          //     });
+          // }
         })
         .catch(err => {
           const message = "Some Error Occured";
@@ -288,17 +296,12 @@ export default {
 </script>
 
 <style src="../../assets/css/forms.css">
-
 </style>
 <style>
-  
-
 @media (min-width: 768px) {
   .modal-xl {
     width: 90%;
-   max-width:1200px;
+    max-width: 1200px;
   }
 }
-
-
 </style>
