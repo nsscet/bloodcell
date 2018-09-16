@@ -10,6 +10,10 @@
         enabled: true,
         placeholder: 'Search this table'
       }"
+      :pagination-options="{
+        enabled:true,
+        perPage:10
+      }"
      >
      <template slot="table-row" slot-scope="props">
     <span v-if="props.column.field == 'status'">
