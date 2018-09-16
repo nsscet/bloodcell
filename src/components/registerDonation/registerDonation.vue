@@ -91,7 +91,8 @@ export default {
         hospitalId: this.hospitalId,
         dateOfDonation: this.dateOfDonation,
         typeOfDonation: this.typeOfDonation,
-        voluntary: true
+        voluntary: true,
+        donor:this.donor
       };
 
       window

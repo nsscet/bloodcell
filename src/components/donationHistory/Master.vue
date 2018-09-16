@@ -12,18 +12,8 @@
       }"
       :pagination-options="{
         enabled: true,
-        // mode: 'records',
         perPage: 20,
-        // position: 'top',
-        // perPageDropdown: [3, 7, 9],
-        // dropdownAllowAll: false,
-        // setCurrentPage: 2,
-        // nextLabel: 'next',
-        // prevLabel: 'prev',
-        // rowsPerPageLabel: 'Rows per page',
-        // ofLabel: 'of',
-        // pageLabel: 'page', // for 'pages' mode
-        // allLabel: 'All',
+       
       }"
      >
      <template slot="table-row" slot-scope="props">
@@ -42,8 +32,8 @@ import { VueGoodTable } from "vue-good-table";
 import NavBar from "../navbar/Master";
 import axios from "axios";
 // add to component
-var remark
-var temp
+var remark;
+var temp;
 export default {
   name: "my-component",
   components: {
@@ -72,7 +62,7 @@ export default {
         },
         {
           label: "HosID:PatID:Contact",
-          field:"requirement"
+          field: "requirement"
         }
       ],
       rows: [],
@@ -80,20 +70,27 @@ export default {
     };
   },
   created() {
-    const url = "http://localhost:3000/public/getrequirements/donations";
-
+    const url1 = "http://localhost:3000/public/getrequirements/donations";
+    const url2 = "http://localhost:3000/api/admin/getDonations";
     axios
-      .get(url, { withCredentials: true })
+      .get(url1, { withCredentials: true })
       .then(res => {
-        console.log(res["data"].requirementDonations);
-        this.rows = res["data"].requirementDonations;
+        axios
+          .get(url2, { withCredentials: true })
+          .then(donations => {
+            var history = res["data"].requirementDonations.concat(donations.data.voluntaryDonations)
+            this.rows = history
+          })
+          .catch(err => {
+            this.errors.push(err)
+          });
+          this.rows = res["data"].requirementDonations;
       })
       .catch(err => {
         this.errors.push(err);
       });
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 <style>

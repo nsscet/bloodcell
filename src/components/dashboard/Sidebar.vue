@@ -40,6 +40,9 @@
       <li class="nav-item" v-if="this.role === 'sadmin' || this.role === 'organisation' ">
         <router-link to="/searchHospitals" class="nav-link"><i class="fa fa-search"></i> Search Hospitals</router-link>
       </li>
+       <li class="nav-item" v-if="this.role === 'sadmin' || this.role === 'organisation' ">
+        <router-link to="/donationHistory" class="nav-link"><i class="fa fa-search"></i> Donation History</router-link>
+      </li>
     
     </ul>
 
