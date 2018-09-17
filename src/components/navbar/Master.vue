@@ -1,7 +1,8 @@
 <template lang="html">
     <nav class="navbar fixed-top justify-content-between">
       <a class="navbar-brand">
-        <router-link to="/" class="brand-link">LOGO</router-link>
+        <router-link to="/" class="brand-link"><img src="../../assets/nss_logo.jpeg" class="image"></img></router-link>
+
       </a>
       <form class="form-inline" v-if="this.isLoggedIn">
         <span class="login-text text-uppercase"><span class="fa fa-user"></span><strong><router-link class="login-text" to='/dash'> {{this.username}}</router-link></strong> </span>
@@ -51,6 +52,10 @@ export default {
 </script>
 
 <style lang="css">
+.image{
+  height:35px;
+  width: auto;
+}
 .avatar
 {
   position: relative;

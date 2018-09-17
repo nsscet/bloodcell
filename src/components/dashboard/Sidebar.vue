@@ -2,7 +2,7 @@
   <nav class="d-none d-sm-block bg-light sidebar">
     <div class="mx-auto">
       <div class="mx-auto admin-avatar-container">
-        <img class="admin-avatar mx-auto" src="http://i.pravatar.cc/100?img=51" alt="">
+        <img class="admin-avatar mx-auto" src="../../assets/avatar.jpg" alt="">
       </div>
       <br>
       <h5 class="text-center">Welcome {{this.username}}</h5>
@@ -122,6 +122,8 @@ export default {
 .admin-avatar{
   border-radius: 50%;
   border:1px solid black;
+  height: 100px;
+  width:auto;
 }
 
 .admin-avatar-container{
