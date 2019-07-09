@@ -3,6 +3,7 @@
 > Front end for voluntary blood donation application.
 
 ## Build Setup
+ >Add env and config files
 
 ``` bash
 # install dependencies
