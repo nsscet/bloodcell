@@ -16,8 +16,6 @@
           Type: {{requirement.typeOfRequirement}}
         </div>
       </div>
-      <br>
-
     </div>
 
   </div>
@@ -46,7 +44,7 @@ export default {
   },
   mounted(){
     axios.get(
-       'http://localhost:3000/public/getrequirements'
+       'https://titanium-visage.glitch.me/public/getrequirements'
       )
       .then((res) => {
         this.requirements = res.data.requirements

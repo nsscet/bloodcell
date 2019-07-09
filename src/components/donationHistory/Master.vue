@@ -15,6 +15,7 @@
         perPage: 20,
        
       }"
+      :lineNumbers="true"
      >
      <template slot="table-row" slot-scope="props">
     <span >
@@ -53,6 +54,10 @@ export default {
           field: "bloodGroup"
         },
         {
+          label: "Organisation",
+          field: "organisation"
+        },
+        {
           label: "Mobile Number",
           field: "mobileNumber"
         },
@@ -63,6 +68,10 @@ export default {
         {
           label: "HosID:PatID:Contact",
           field: "requirement"
+        },
+        {
+          label: "Date of Donation",
+          field: "dateOfDonation"
         }
       ],
       rows: [],
@@ -70,21 +79,39 @@ export default {
     };
   },
   created() {
-    const url1 = "http://localhost:3000/public/getrequirements/donations";
-    const url2 = "http://localhost:3000/api/admin/getDonations";
+    const url1 =
+      "https://titanium-visage.glitch.me/public/getrequirements/donations";
+    const url2 = "https://titanium-visage.glitch.me/api/admin/getDonations";
     axios
       .get(url1, { withCredentials: true })
       .then(res => {
         axios
           .get(url2, { withCredentials: true })
           .then(donations => {
-            var history = res["data"].requirementDonations.concat(donations.data.voluntaryDonations)
-            this.rows = history
+            var options = { year: "numeric", month: "short", day: "numeric" };
+
+            for (var i = 0; i < donations["data"].voluntaryDonations.length; i++) {
+              if (donations["data"].voluntaryDonations[i].dateOfDonation != null)
+                donations["data"].voluntaryDonations[i].dateOfDonation = new Date(
+                  Number(donations["data"].voluntaryDonations[i].dateOfDonation)
+                ).toLocaleDateString("en-US", options);
+            }
+            console.log(donations["data"]);
+            var history = res["data"].requirementDonations.concat(
+              donations.data.voluntaryDonations
+            );
+            for (var i = 0; i < res["data"].requirementDonations.length; i++) {
+              if (res["data"].requirementDonations[i].dateOfDonation != null)
+                res["data"].requirementDonations[i].dateOfDonation = Date(
+                  res["data"].requirementDonations[i].dateOfDonation
+                );
+            }
+            this.rows = history;
           })
           .catch(err => {
-            this.errors.push(err)
+            this.errors.push(err);
           });
-          this.rows = res["data"].requirementDonations;
+        this.rows = res["data"].requirementDonations;
       })
       .catch(err => {
         this.errors.push(err);

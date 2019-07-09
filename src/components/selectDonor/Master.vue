@@ -85,6 +85,9 @@ export default {
         {
           label: "Mobile Number",
           field: "mobileNumber"
+        },{
+          label:"Organisation",
+          field:"organisation"
         },
         {
           label: "Branch",

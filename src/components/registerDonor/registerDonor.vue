@@ -40,8 +40,12 @@
               <option class="input" value="Applied">Applied </option>
               <option class="input" value="Industrial">Industrial </option>
               <option class="input" value="MCA">MCA</option>
-
-
+            </select>
+            <span class="small">Organisation</span>
+            <select class=" form-control w-100 custom-select" name="" v-model="organisation">
+              <option class="input" selected value="CET">College of Engineering,Trivandrum</option>
+              <option class="input"  value="SCT">SCT</option>
+              <option class="input"  value="TKM">TKM</option>
             </select>
           </div>
           <div class="row algin-items-end">
@@ -60,7 +64,7 @@
 </template>
 
 <script>
-var name, place, email, donorId, bloodGroup,branch,yearOfJoin
+var name, place, email, donorId, bloodGroup, branch, yearOfJoin,organisation;
 var data = {
   name,
   place,
@@ -68,20 +72,21 @@ var data = {
   donorId,
   bloodGroup,
   branch,
-  yearOfJoin
-}
+  yearOfJoin,
+  organisation
+};
 export default {
-  data: function(){
-    return data
+  data: function() {
+    return data;
   },
   computed: {
-    mobile(){
-      return this.$store.state.donor.mobileNumber
+    mobile() {
+      return this.$store.state.donor.mobileNumber;
     }
   },
   methods: {
-    submit: function(){
-      var self = this
+    submit: function() {
+      var self = this;
       var postData = {
         name: this.name,
         place: this.place,
@@ -89,27 +94,29 @@ export default {
         email: this.email,
         bloodGroup: this.bloodGroup,
         donorId: this.donorId,
-        branch:this.branch,
-        yearOfJoin:this.yearOfJoin
-      }
-      window.axios({
-        url: process.env.API_URL + '/admin/donor',
-        method: 'post',
-        data: postData,
-        withCredentials: true
-      })
-      .then(function(res){
-        console.log(res.data.Donor);
-          self.$store.commit('updateDonor' , res.data.Donor)
-          self.$router.push('/registerdonation')
-      })
-      .catch(function(err){
-        throw err
-        console.log(err);
-      })
+        branch: this.branch,
+        yearOfJoin: this.yearOfJoin,
+        organisation: this.organisation
+      };
+      window
+        .axios({
+          url: process.env.API_URL + "/admin/donor",
+          method: "post",
+          data: postData,
+          withCredentials: true
+        })
+        .then(function(res) {
+          console.log(res.data.Donor);
+          self.$store.commit("updateDonor", res.data.Donor);
+          self.$router.push("/success");
+        })
+        .catch(function(err) {
+          throw err;
+          console.log(err);
+        });
     }
   }
-}
+};
 </script>
 
 <style src="../../assets/css/forms.css"></style>

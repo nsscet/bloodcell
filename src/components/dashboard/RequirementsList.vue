@@ -3,7 +3,7 @@
     <h2>Requirements</h2>
     <hr>
     <div class="" v-for="requirement in requirements">
-      <div class="card" v-if="requirement.isClosed == 0">
+      <div class="card" v-if="!requirement.isClosed">
         <div class="card-body">
           <strong>{{requirement.quantity}} units of {{requirement.bloodGroup}} blood required</strong>
           <br>
@@ -13,8 +13,12 @@
           <br>
           Date of posting: {{requirement.timeOfPosting}}
           <br>
-          Type: {{requirement.typeOfRequirement}}
-          <br>
+          <div v-if="requirement.typeOfRequirement == 'A'">
+          Type of requirement:Normal Donation
+          </div> 
+          <div v-else>
+          Type of requirement:Platelet Donation
+          </div> 
           Contact: {{requirement.contactNo}}
           <br>
           Remarks: {{requirement.remarks}}
@@ -38,8 +42,6 @@
           <button type="button" name="button" class="btn btn-success" @click="closeRequirement(requirement)"><i class="fa fa-check-circle"></i> Close</button>
         </div>
       </div>
-      <br>
-
     </div>
     
   <div class="modal "  id="theModal">
@@ -87,6 +89,7 @@ var name,
   bloodGroup,
   branch,
   mobileNo,
+  organisation,
   remark;
 
 export default {
@@ -102,7 +105,8 @@ export default {
       branch,
       mobileNo,
       tempRequirement,
-      remark
+      remark,
+      organisation
     };
   },
   components:{
@@ -122,8 +126,13 @@ export default {
     },
     loadData(){
       axios
-      .get("http://localhost:3000/public/getrequirements")
+      .get("https://titanium-visage.glitch.me/public/getrequirements")
       .then(res => {
+        var options = { year: "numeric", month: "short", day: "numeric" };
+        for (var i = 0; i < res["data"].requirements.length; i++) {
+          if (res["data"].requirements[i].timeOfPosting != null)
+            res["data"].requirements[i].timeOfPosting = Date(res["data"].requirements[i].timeOfPosting);
+        }
         this.requirements = res.data.requirements;
       })
       .catch(err => {
@@ -131,12 +140,14 @@ export default {
       });
     },
     closeRequirement: requirement => {
-      var qty = requirement.quantity - requirement.children.length
+      var qty = requirement.quantity-requirement.children.length
       var closed = 0
       if(qty === 0)
         closed = 1
       else if(qty>0)
-        closed = -1  
+        closed = -1 
+      console.log(closed)
+
       var postData = {
         patientId: requirement.patientId,
         hospitalId: requirement.hospitalId,
@@ -144,9 +155,9 @@ export default {
         quantity: requirement.quantity,
         bloodGroup: requirement.bloodGroup,
         isClosed: closed,
-        timeOfPosting: requirement.timeOfPosting,
         contactNo: requirement.contactNo,
-        remarks: requirement.remarks
+        remarks: requirement.remarks,
+        children:requirement.children
       };
       window
         .axios({
@@ -189,9 +200,9 @@ export default {
           withCredentials:true,
           data:query
         }).then((res)=>{
-          console.log(res)
+          
         }).catch((err)=>{
-          console.log(err)
+          
         })
         this.loadData();
     },
@@ -204,8 +215,10 @@ export default {
         yearOfJoin: this.yearOfJoin,
         bloodGroup: this.bloodGroup,
         branch: this.branch,
-        mobileNumber: this.mobileNo
+        mobileNumber: this.mobileNo,
+        organisation:this.organisation,
       };
+      console.log(this.organisation);
       window
         .axios({
           method: "post",

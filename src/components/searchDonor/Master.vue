@@ -65,9 +65,10 @@
 import { VueGoodTable } from "vue-good-table";
 import NavBar from "../navbar/Master";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 // add to component
-var remark
-var temp
+var remark;
+var temp;
 export default {
   name: "my-component",
   components: {
@@ -90,6 +91,11 @@ export default {
           label: "Mobile Number",
           field: "mobileNumber"
         },
+        
+        {
+          label: "Organisation",
+          field: "organisation"
+        },
         {
           label: "Branch",
           field: "branch"
@@ -100,8 +106,7 @@ export default {
         },
         {
           label: "Date of Last Donation",
-          field: "lastDonation.dateOfDonation",
-          type: "date"
+          field: "lastDonation.dateOfDonation"
         },
         {
           label: "Remarks",
@@ -118,6 +123,14 @@ export default {
     axios
       .get(url, { withCredentials: true })
       .then(res => {
+        var options = { year: "numeric", month: "short", day: "numeric" };
+        for (var i = 0; i < res["data"].Donors.length; i++) {
+          if (res["data"].Donors[i].lastDonation != null)
+            res["data"].Donors[i].lastDonation.dateOfDonation = new Date(
+              Number(res["data"].Donors[i].lastDonation.dateOfDonation)
+            ).toLocaleDateString("en-US", options);
+        }
+
         this.rows = res["data"].Donors;
       })
       .catch(err => {
@@ -126,31 +139,33 @@ export default {
   },
   methods: {
     editRemark(donor) {
-      this.temp = donor
-      console.log(this.rows)
+      this.temp = donor;
+      console.log(this.rows);
     },
-    updateRemark(){
-      var query = {}
-      query.mobileNo = this.temp.mobileNumber
-      query.remark = this.remark
-      window.axios({
-        url:process.env.API_URL + '/admin/donor',
-        method:'put',
-        data:query,
-        withCredentials:true
-      }).then((res)=>{
-        console.log("1")
-        const url = process.env.API_URL + "/admin/donor";
-      axios
-      .get(url, { withCredentials: true })
-      .then(res => {
-        this.rows = res["data"].Donors;
-      })
-      .catch(err => {
-        this.errors.push(err);
-      });
-        }).catch((err)=>{
-      })
+    updateRemark() {
+      var query = {};
+      query.mobileNo = this.temp.mobileNumber;
+      query.remark = this.remark;
+      window
+        .axios({
+          url: process.env.API_URL + "/admin/donor",
+          method: "put",
+          data: query,
+          withCredentials: true
+        })
+        .then(res => {
+          console.log("1");
+          const url = process.env.API_URL + "/admin/donor";
+          window.axios
+            .get(url, { withCredentials: true })
+            .then(res => {
+              this.rows = res["data"].Donors;
+            })
+            .catch(err => {
+              this.errors.push(err);
+            });
+        })
+        .catch(err => {});
     }
   }
 };
